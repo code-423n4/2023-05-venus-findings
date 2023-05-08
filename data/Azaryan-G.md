@@ -1,0 +1,1 @@
+In PoolLens.sol, we can optimize the gas of `getAllPools` function by passing the `VenusPool` object directly to `getPoolDataFromVenusPool` function. We don't need to create temporary `venusPool` variable.
