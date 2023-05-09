@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "tpiliposian",
+  "risk": "2",
+  "title": "The poolRegistry variable is not initialized, so updateAssetsState function will never work",
+  "issueId": 29,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/29"
+}
