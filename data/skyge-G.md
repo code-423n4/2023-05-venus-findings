@@ -1,0 +1,13 @@
+Define the custom error types to save gas, you can replace them in 
+- BaseJumpRateModelV2.sol
+- Comptroller.sol
+- ExponentialNoError.sol
+- MaxLoopsLimitHelper.sol
+- PoolRegistry.sol
+- ProtocolShareReserve.sol
+- ReserveHelpers.sol
+- RewardsDistributor.sol
+- RiskFund.sol
+- Shortfall.sol
+- UpgradeableBeacon.sol
+- VToken.sol
