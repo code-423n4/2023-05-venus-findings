@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "Praise",
+  "risk": "3",
+  "title": "A malicious Actor can use healAccount() function in comptroller.sol to steal tokens from users",
+  "issueId": 35,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/35"
+}
