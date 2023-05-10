@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "Bughunter101",
+  "risk": "3",
+  "title": "When LARGE_RISK_FUND sender transfer same fund can place a bid greater than the previous in an ongoing auction",
+  "issueId": 51,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/51"
+}
