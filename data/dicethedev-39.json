@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "dicethedev",
+  "risk": "2",
+  "title": "No access control or permission mechanism for who can call the `deployVTokenProxy` function.",
+  "issueId": 39,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/39"
+}
