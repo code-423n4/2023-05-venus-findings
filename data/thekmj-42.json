@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "thekmj",
+  "risk": "2",
+  "title": "If `REPAY` action is paused, users will end up having to repay more debt due to interest when it is unpaused (alongside increased liquidation risks)",
+  "issueId": 42,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/42"
+}
