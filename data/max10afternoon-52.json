@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "max10afternoon",
+  "risk": "2",
+  "title": "Minting very small amounts of tokens will result in funds loss",
+  "issueId": 52,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/52"
+}
