@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "sbh",
+  "risk": "2",
+  "title": "Public Visibility of Storage Variables in ComptrollerStorage.sol",
+  "issueId": 77,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/77"
+}
