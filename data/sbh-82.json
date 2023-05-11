@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "sbh",
+  "risk": "2",
+  "title": "Incomplete Input Validation: The deployVTokenProxy function does not perform comprehensive input validation on the VTokenArgs struct in VTokenProxyFactory.sol",
+  "issueId": 82,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/82"
+}
