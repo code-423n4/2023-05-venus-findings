@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "bin2chen",
+  "risk": "2",
+  "title": "liquidateBorrow() vTokens that do not enter the market can still be liquidated as collateral",
+  "issueId": 67,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/67"
+}
