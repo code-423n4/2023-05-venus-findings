@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "sbh",
+  "risk": "3",
+  "title": "integer division: div_ function performs division using unsigned integers, which can result in truncation and the loss of fractional values in ExponentialNoError.sol",
+  "issueId": 75,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/75"
+}
