@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "bin2chen",
+  "risk": "3",
+  "title": "claimRewardToken() If RewardToken is ERC777, the balance can be drained",
+  "issueId": 63,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/63"
+}
