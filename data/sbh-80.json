@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "sbh",
+  "risk": "3",
+  "title": "Lack of Access Control: Anyone can deploy a VToken proxy. Can lead to unauthorized deployments and potential misuse of the contract due to deployVTokenProxy function is externally accessible in VTokenProxyFactory.sol",
+  "issueId": 80,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/80"
+}
