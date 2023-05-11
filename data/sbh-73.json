@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "sbh",
+  "risk": "3",
+  "title": "Lack of input validation: mint() function does not perform explicit validation on the mintAmount parameter in VTokenInterfaces.sol and VToken.sol",
+  "issueId": 73,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/73"
+}
