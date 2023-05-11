@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "sbh",
+  "risk": "3",
+  "title": "Missing Input Validation: Lack of comprehensive input validation on ongetBorrowRate and getSupplyRate functions in WhitePaperInterestRateModel.sol",
+  "issueId": 84,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/84"
+}
