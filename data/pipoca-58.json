@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "pipoca",
+  "risk": "2",
+  "title": "Lack of Input Validation in swapPoolsAssets Function",
+  "issueId": 58,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/58"
+}
