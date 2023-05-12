@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "wzrdk3lly",
+  "risk": "2",
+  "title": "VToken's approve() is vulnerable to frontrunning attacks",
+  "issueId": 118,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/118"
+}
