@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "0xadrii",
+  "risk": "2",
+  "title": "DoS in shortfall if `convertibleBaseAsset` is set to be an ERC777 token",
+  "issueId": 124,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/124"
+}
