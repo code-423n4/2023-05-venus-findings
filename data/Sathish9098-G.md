@@ -2,6 +2,18 @@
 
 ##
 
+## [G-1] Refactore the for loop to save gas cost 
+
+We don't want to create vToken.vToken only called once. No need to create the local variable for this . We can directly use VToken(vTokens[i]) instead of cache with local variables 
+
+ uint256[] memory results = new uint256[](len);
+        for (uint256 i; i < len; ++i) {
+            VToken vToken = VToken(vTokens[i]);
+
+            _addToMarket(vToken, msg.sender);
+            results[i] = NO_ERROR;
+        }
+
 
 
 
