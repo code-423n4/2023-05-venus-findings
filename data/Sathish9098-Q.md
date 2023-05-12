@@ -56,6 +56,8 @@
 
 ##
 
+
+
 ## [L-1] MIXING AND OUTDATED COMPILER
 
 ### Impact 
@@ -75,23 +77,16 @@ Code Generation: Fix data corruption that affected ABI-encoding of calldata valu
 Yul Optimizer: Prevent the incorrect removal of storage writes before calls to Yul functions that conditionally terminate the external EVM call.
 Apart from these, there are several minor bug fixes and improvements
 
-```solidity
-FILE : 2023-04-rubicon/contracts/RubiconMarket.sol
 
-2: pragma solidity ^0.8.9;
-```
-```solidity
-FILE: 2023-04-rubicon/contracts/utilities/FeeWrapper.sol
-
-2: pragma solidity 0.8.17;
-```
-```solidity
-FILE: 2023-04-rubicon/contracts/periphery/BathBuddy.sol
-
-2: pragma solidity ^0.8.0;
-```
 ## Recommended Mitigation:
 Use More recent version of solidity 
+
+##
+
+## [L-2] Lack of integer validations before executions
+
+
+## [L-3] safeApprove already depreacted in openzheplin contracts 
 
 
 
