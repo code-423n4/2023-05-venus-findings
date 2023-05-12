@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "volodya",
+  "risk": "2",
+  "title": "The Oracle returns incorrect prices because it does not call updatePrice before calling getUnderlyingPrice",
+  "issueId": 98,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/98"
+}
