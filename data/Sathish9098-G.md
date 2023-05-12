@@ -2,38 +2,184 @@
 
 ##
 
-## [G-1] Refactore the for loop to save gas cost 
+## [G-] USING CALLDATA INSTEAD OF MEMORY FOR READ-ONLY ARGUMENTS IN EXTERNAL FUNCTIONS SAVES GAS
 
-We don't want to create vToken.vToken only called once. No need to create the local variable for this . We can directly use VToken(vTokens[i]) instead of cache with local variables 
+- Instances (10)
 
- uint256[] memory results = new uint256[](len);
-        for (uint256 i; i < len; ++i) {
-            VToken vToken = VToken(vTokens[i]);
-
-            _addToMarket(vToken, msg.sender);
-            results[i] = NO_ERROR;
-        }
-
-
-
-
-[G-] USING CALLDATA INSTEAD OF MEMORY FOR READ-ONLY ARGUMENTS IN EXTERNAL FUNCTIONS SAVES GAS 8
-
+- Gas Saved : 1200 gas  
 
 calldata must be used when declaring an external function's dynamic parameters
 
-When a function with a memory array is called externally, the abi.decode ()  step has to use a for-loop to copy each index of the calldata to the memory index. Each iteration of this for-loop costs at least 60 gas (i.e. 60 * <mem_array>.length). Using calldata directly, obliviates the need for such a loop in the contract code and runtime execution. 
+When a function with a memory array is called externally, the abi.decode() step has to use a for-loop to copy each index of the calldata to the memory index. Each iteration of this for-loop costs at least 60 gas (i.e. 60 * <mem_array>.length). Using calldata directly, obliviates the need for such a loop in the contract code and runtime execution. Note that even if an interface defines a function as having memory arguments, it’s still valid for implementation contracs to use calldata arguments instead.
+
+If the array is passed to an internal function which passes the array to another internal function where the array is modified and therefore memory is used in the external call, it’s still more gass-efficient to use calldata when the external function uses modifiers, since the modifiers may prevent the internal functions from being called. Structs have the same overhead as an array of length one
+
+Note that I’ve also flagged instances where the function is public but can be marked as external since it’s not called by the contract, and cases where a constructor is involved
+
+At least 120 gas saved for every instances 
+
+```solidity
+FILE: 2023-05-venus/contracts/Comptroller.sol
+
++ 154: function enterMarkets(address[] calldata vTokens) external override returns (uint256[] memory) {
+- 154: function enterMarkets(address[] memory vTokens) external override returns (uint256[] memory) {
+
+```
+https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/Comptroller.sol#L154
+
+```solidity
+FILE: Breadcrumbs2023-05-venus/contracts/VToken.sol
+
+64: string memory name_,
+65: string memory symbol_,
+69:  RiskManagementInit memory riskManagement,
+
+```
+https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/VToken.sol#L64-L65
+
+```solidity
+FILE: 2023-05-venus/contracts/Rewards/RewardsDistributor.sol
+
+166: Exp memory marketBorrowIndex
+
+187: function updateRewardTokenBorrowIndex(address vToken, Exp memory marketBorrowIndex) external
+ onlyComptroller {
+
+198: VToken[] memory vTokens,
+
+199: uint256[] memory supplySpeeds,
+
+200: uint256[] memory borrowSpeeds
+
+```
+https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/Rewards/RewardsDistributor.sol#LL166C9-L166C37
+
+```solidity
+FILE: 2023-05-venus/contracts/Pool/PoolRegistry.sol
+
+343: function updatePoolMetadata(address comptroller, VenusPoolMetaData memory _metadata) external {
+
+```
+https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/Pool/PoolRegistry.sol#LL343C5-L343C100
+
+##
+
+## [G-1] Refactor the for loop to save gas
+
+### The code should be updated to remove the local variable for vToken and instead directly use VToken(vTokens[i]) within the _addToMarket function call 
+
+As per Remix [Test Reports](https://gist.github.com/sathishpic22/1c92c01937691e12198e4545a72c3c1f) Its possible to save 13 gas for every iterations
+
+The saved gas increased as per iterations count. So can't find the approximate gas savings.   
+
+### BEFORE CHANGE
+
+| GAS | TRANS COST | EXE COST |
+|----------|----------|----------|
+| 26854 | 23351 | 1639  |
+
+- INSTANCE-1 
+
+```solidity
+FILE: 2023-05-venus/contracts/Comptroller.sol
+
+162: uint256[] memory results = new uint256[](len);
+163:        for (uint256 i; i < len; ++i) {
+164:            VToken vToken = VToken(vTokens[i]);
+
+165:            _addToMarket(vToken, msg.sender);
+166:            results[i] = NO_ERROR;
+167:        }
+
+```
+
+### AFTER CHANGE
+
+| GAS | TRANS COST | EXE COST |
+|----------|----------|----------|
+| 26839 | 23338 | 1626 |
+
+```solidity
+FILE: 2023-05-venus/contracts/Comptroller.sol
+
+   162: uint256[] memory results = new uint256[](len);
+   163:        for (uint256 i; i < len; ++i) {
+ - 164:            VToken vToken = VToken(vTokens[i]);
+ + 165:            _addToMarket(VToken(vTokens[i]), msg.sender);
+ - 165:            _addToMarket(vToken, msg.sender);
+   166:            results[i] = NO_ERROR;
+   167:        }
+
+```
+https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/Comptroller.sol#LL162C9-L167C10
+
+- INSTANCE-2 
+
+vTokenSupply only used only once. So need to cache this with stack variable.
+
+```solidity
+FILE: 2023-05-venus/contracts/Comptroller.sol
+
+- 263: uint256 vTokenSupply = VToken(vToken).totalSupply();
+  264: Exp memory exchangeRate = Exp({ mantissa: VToken(vToken).exchangeRateStored() });
++ 265: uint256 nextTotalSupply = mul_ScalarTruncateAddUInt(exchangeRate, VToken(vToken).totalSupply(), mintAmount);
+- 265: uint256 nextTotalSupply = mul_ScalarTruncateAddUInt(exchangeRate, vTokenSupply, mintAmount);
+
+```
+https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/Comptroller.sol#L263-L265
+
+- INSTANCE-3
+
+vToken only used once inside the function. Instead of caching can be used directly IERC20Upgradeable function call
+
+```solidity
+FILE: 2023-05-venus/contracts/Shortfall/Shortfall.sol
+
+   223: for (uint256 i; i < marketsCount; ++i) {
+ - 224:         VToken vToken = VToken(address(auction.markets[i]));
+ - 225:         IERC20Upgradeable erc20 = IERC20Upgradeable(address(vToken.underlying()));
+ + 225:         IERC20Upgradeable erc20 = IERC20Upgradeable(address(VToken(address(auction.markets[i])).underlying()));
+```
+https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/Shortfall/Shortfall.sol#LL223C9-L225C87
+
+- INSTANCE-4
+
+vToken No need to cache 
+
+```solidity
+FILE: 2023-05-venus/contracts/Shortfall/Shortfall.sol
+
+    374: for (uint256 i; i < marketsCount; ++i) {
+ -  375:         VToken vToken = auction.markets[i];
+ -  376:         auction.marketDebt[vToken] = 0;
+ +  376:         auction.marketDebt[auction.markets[i]] = 0;
+    377:      }
+
+```
+https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/Shortfall/Shortfall.sol#L374-L377
+
+- INSTANCE-5
+
+```solidity
+FILE: 2023-05-venus/contracts/Pool/PoolRegistry.sol
+
+  356: for (uint256 i = 1; i <= _numberOfPools; ++i) {
+- 357:          address comptroller = _poolsByID[i];
+- 358:          _pools[i - 1] = (_poolByComptroller[comptroller]);
++ 358:          _pools[i - 1] = (_poolByComptroller[_poolsByID[i]]);
+  359:      }
+
+```
+https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/Pool/PoolRegistry.sol#LL356C9-L359C10
+
+
+
 
 [G-] The result of function calls should be cached rather than re-calling the function 3
-L
 
 The instances below point to the second+ call of the function within a single function
 
-[G-] State variables only set in the constructor should be declared immutable
 
-Avoids a Gsset (20000 gas) in the constructor, and replaces the first access in each transaction (Gcoldsload - 2100 gas) and each access thereafter (Gwarmacces - 100 gas) with a PUSH32 (3 gas).
-
-While strings are not value types, and therefore cannot be immutable/constant if not hard-coded outside of the constructor, the same behavior can be achieved by making the current contract abstract with virtual functions for the string accessors, and having a child contract override the functions with the hard-coded implementation-specific values.
 
 
 [G-] use uint(1)/uint(2) instead of bool true/false 
@@ -50,6 +196,36 @@ You can save a Gcoldsload (2100 gas) in the address provider, plus the 100 gas o
 A log topic (declared with indexed) has a gas cost of Glogtopic (375 gas). The Stake and Withdraw events’ second indexed parameter is a constant for a majority of events emitted (with the exception of the events emitted in the _stakeLP() and _withdrawLP() functions) and is unecessary to emit since the value will never change. Alternatively, you can avoid incurring the Glogtopic (375 gas) per call to any function that emits Stake/Withdraw (with the exception of _stakeLP() and _withdrawLP()) by creating separate events for each staking/withdraw function and opt out of using the current indexed asset topic in each event. This way you can still query the different staking/withdraw events and will save 375 gas for each staking/withdraw function (with the exception of _stakeLP() and _withdrawLP()).
 
 Note that the events emitted in the _stakeLP() and withdrawLP() functions are not considered for this issue since the second indexed parameter is for the LP storage variable, which can be changed via the configureLP() function.
+
+##
+
+## [G-] Avoid Emitting State Variables When Stack Variables Are Available
+
+- Instances (2) 
+
+- Gas Saved: 244 gas 
+
+It emphasizes the importance of using stack variables instead of state variables when possible to avoid unnecessary emissions. By following this guideline, developers can improve gas efficiency and optimize the performance of their Solidity code
+
+As per Remix [Sample Test](https://gist.github.com/sathishpic22/f294c3b0ccaae13c144ef3858bcd426c)  possible to save 122 gas for every instances 
+
+```solidity
+FILE: Breadcrumbs2023-05-venus/contracts/Comptroller.sol
+
+  - 709: emit NewCloseFactor(oldCloseFactorMantissa, closeFactorMantissa);
+  + 709: emit NewCloseFactor(oldCloseFactorMantissa, newCloseFactorMantissa);
+
+```
+https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/Comptroller.sol#LL709C74-L709C74
+
+```solidity
+FILE: 2023-05-venus/contracts/Rewards/RewardsDistributor.sol
+
+  - 268: emit ContributorRewardsUpdated(contributor, rewardTokenAccrued[contributor]);
+  + 268: emit ContributorRewardsUpdated(contributor, contributorAccrued);
+
+```
+https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/Rewards/RewardsDistributor.sol#L268
 
 
 [G-] <x> += <y>/<x> -= <y> costs more gas than <x> = <x> + <y>/<x> = <x> - <y> for state variables  
@@ -660,6 +836,30 @@ Use uint256(1) and uint256(2) for true/false
 
 
 ```
+
+##
+
+## [G-20] Use a more recent version of solidity
+
+CONTEXT:
+ALL SCOPE CONTRACTS
+
+- Use a solidity version of at least 0.8.0 to get overflow protection without SafeMath
+- Use a solidity version of at least 0.8.2 to get simple compiler automatic inlining
+- Use a solidity version of at least 0.8.3 to get better struct packing and cheaper multiple storage reads
+- Use a solidity version of at least 0.8.4 to get custom errors, which are cheaper at deployment than revert()/require() strings
+- Use a solidity version of at least 0.8.10 to have external calls skip contract existence checks if the external call has a return value
+- In 0.8.15 the conditions necessary for inlining are relaxed. Benchmarks show that the change significantly decreases the bytecode size (which impacts the deployment cost) while the effect on the runtime gas usage is smaller.
+- In 0.8.17 prevent the incorrect removal of storage writes before calls to Yul functions that conditionally terminate the external EVM call; Simplify the starting offset of zero-length operations to zero. More efficient overflow checks for multiplication.
+
+- in 0.8.19 prevents 
+
+  - Assembler: Avoid duplicating subassembly bytecode where possible.
+Code Generator: Avoid including references to the deployed label of referenced functions if they are called right away.
+  - ContractLevelChecker: Properly distinguish the case of missing base constructor arguments from having an unimplemented base function.
+  - SMTChecker: Fix internal error caused by unhandled z3 expressions that come from the solver when bitwise operators are used.
+  - SMTChecker: Fix internal error when using the custom NatSpec annotation to abstract free functions.
+  - TypeChecker: Also allow external library functions in using for.
 
 
 
