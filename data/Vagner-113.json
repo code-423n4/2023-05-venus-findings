@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "Vagner",
+  "risk": "2",
+  "title": "`placeBid` can be front-run by the highest bidder being impossible to overbid him in most of the cases",
+  "issueId": 113,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/113"
+}
