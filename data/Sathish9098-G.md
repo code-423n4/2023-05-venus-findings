@@ -172,17 +172,9 @@ FILE: 2023-05-venus/contracts/Pool/PoolRegistry.sol
 ```
 https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/Pool/PoolRegistry.sol#LL356C9-L359C10
 
+##
 
-
-
-[G-] The result of function calls should be cached rather than re-calling the function 3
-
-The instances below point to the second+ call of the function within a single function
-
-
-
-
-[G-] use uint(1)/uint(2) instead of bool true/false 
+## [G-] 
 
 
 [G-] Save gas by checking against default WETH address
@@ -205,7 +197,7 @@ Note that the events emitted in the _stakeLP() and withdrawLP() functions are no
 
 - Gas Saved: 244 gas 
 
-It emphasizes the importance of using stack variables instead of state variables when possible to avoid unnecessary emissions. By following this guideline, developers can improve gas efficiency and optimize the performance of their Solidity code
+In the instance below, we can emit the calldata value instead of emitting a storage value. This will result in using a cheap CALLDATALOAD instead of an expensive SLOAD
 
 As per Remix [Sample Test](https://gist.github.com/sathishpic22/f294c3b0ccaae13c144ef3858bcd426c)  possible to save 122 gas for every instances 
 
