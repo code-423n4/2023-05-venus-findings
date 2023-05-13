@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "Pingger",
+  "risk": "3",
+  "title": "Integer overflow vulnerability in the placeBid function",
+  "issueId": 146,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/146"
+}
