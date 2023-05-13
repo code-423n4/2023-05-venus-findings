@@ -56,8 +56,94 @@
 
 ##
 
-## [L-2] Lack of integer validations before executions
+## [L-] Converting a string to bytes using bytes(string),Running out of gas can occur if the string is excessively large
 
+If the gas required for the string-to-bytes conversion exceeds the gas limit set for a particular transaction or block, the transaction will fail due to an out-of-gas exception. The exact gas limit can vary based on the network and configuration
+
+```solidity
+FILE: Breadcrumbs2023-05-venus/contracts/Pool/PoolRegistry.sol
+
+440: require(bytes(name).length <= 100, "Pool's name is too large");
+
+```
+
+### Recommended Mitigation
+
+String lengths to ensure it stays within acceptable gas limits and to find the optimal chunk size for your specific use case
+
+
+## [L-2] LACK OF CHECKS THE INTEGER RANGES
+
+Consider edge cases, and conduct security audits to identify potential vulnerabilities or issues related to integer ranges. Taking a proactive approach to ensure the correctness and safety of your code is essential for building secure smart contracts
+
+```solidity
+FILE: Breadcrumbs2023-05-venus/contracts/Comptroller.sol
+
+loopLimit is not checked before set _setMaxLoopsLimit. loopLimit can be zero value. Should be checked before set _setMaxLoopsLimit
+
+function initialize(uint256 loopLimit, address accessControlManager) external initializer {
+        __Ownable2Step_init();
+        __AccessControlled_init_unchained(accessControlManager);
+
+        _setMaxLoopsLimit(loopLimit);
+    }
+
+```
+https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/Comptroller.sol#L138-L143
+
+https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/VToken.sol#L1350-L1396
+
+```solidity
+FILE: Breadcrumbs2023-05-venus/contracts/Rewards/RewardsDistributor.sol
+
+loopLimit_ is not checked before set _setMaxLoopsLimit. loopLimit_ can be zero value. Should be checked before set _setMaxLoopsLimit
+
+function initialize(
+        Comptroller comptroller_,
+        IERC20Upgradeable rewardToken_,
+        uint256 loopsLimit_,
+        address accessControlManager_
+    ) external initializer {
+        comptroller = comptroller_;
+        rewardToken = rewardToken_;
+        __Ownable2Step_init();
+        __AccessControlled_init_unchained(accessControlManager_);
+
+        _setMaxLoopsLimit(loopsLimit_);
+    }
+
+```
+https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/Rewards/RewardsDistributor.sol#L111-L123
+
+### Recommended Mitigation
+
+```solidity
+
+Require(loopLimit > 0, "the loopLimit  can't be zero value ");
+
+```
+
+##
+
+## [L-] Missing Event for initialize
+
+Events help non-contract tools to track changes, and events prevent users from being surprised by changes Issuing event-emit during initialization is a detail that many projects skip
+
+https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/VToken.sol#L1350-L1396
+
+https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/Shortfall/Shortfall.sol#L131-L150
+
+https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/Rewards/RewardsDistributor.sol#L111-L123
+
+https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/Pool/PoolRegistry.sol#L164-L180
+
+https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/RiskFund/RiskFund.sol#L73-L93
+
+### Recommendation: 
+
+Add Event-Emit
+
+##
 
 ## [L-3] Unsafe typecasting method is used to cast bytes32 to uint256 
 
@@ -66,72 +152,13 @@ To convert a bytes32 variable to a uint256 variable in Solidity, you can use the
 ### EXAMPLE :
 
 ```solidity
-bytes32 id_ = 0x1234567890123456789012345678901234567890123456789012345678901234;
-uint256 id = uint256(abi.decode(bytes(id_), (uint256)));
-```
+
 ```solidity
-FILE : 2023-04-rubicon/contracts/RubiconMarket.sol
-
-> id_ is type casted from unsafe way from bytes32 to uint256
-
-297: function bump(bytes32 id_) external can_buy(uint256(id_)) {
-298: uint256 id = uint256(id_);
-
-565: require(buy(uint256(id), maxTakeAmount));
-
-753: require(buy(uint256(id), maxTakeAmount));
-
-757: require(cancel(uint256(id)));
 
 ```
-
-[RubiconMarket.sol#L565](https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/RubiconMarket.sol#L565),[RubiconMarket.sol#L753](https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/RubiconMarket.sol#L753)
-
 ### Recommended Mitigation
 
 Use safe casting way instead incompatible way 
-
-##
-
-## [L-7] Array lengths not checked before batch operations
-
-The batchRequote function provided takes in several arrays as input parameters. It is important to note that if the lengths of these arrays do not match, the function may behave unexpectedly or throw an error 
-
-```solidity
-FILE : 2023-04-rubicon/contracts/RubiconMarket.sol
-
-   function batchRequote(
-        uint[] calldata ids,
-        uint[] calldata payAmts,
-        address[] calldata payGems,
-        uint[] calldata buyAmts,
-        address[] calldata buyGems
-    ) external {
-        for (uint i = 0; i < ids.length; i++) {
-            cancel(ids[i]);
-            this.offer(
-                payAmts[i],
-                ERC20(payGems[i]),
-                buyAmts[i],
-                ERC20(buyGems[i])
-            );
-        }
-    }
-
-
-```
-
-[RubiconMarket.sol#L917-L933](https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/RubiconMarket.sol#L917-L933)
-
-
-Recommended Mitigation:
-
-require(
-            ids.length == payAmts.length &&
-                ids.length == payGems.length &&
-                ids.length == buyAmts.length && ids.length == buyGems.length
-            "Array lengths do not match"
-        );
 
 ##
 
@@ -139,77 +166,6 @@ require(
 
 Events help non-contract tools to track changes, and events prevent users from being surprised by changes
 
-##
-
-## [L-9] Don’t use payable.call()
-
-payable.call() is a low-level method that can be used to send ether to a contract, but it has some limitations and risks as you've pointed out. One of the primary risks of using payable.call() is that it doesn't guarantee that the contract's payable function will be called successfully. This can lead to funds being lost or stuck in the contract
-
-- The contract does not have a payable callback
-- The contract’s payable callback spends more than 2300 gas (which is only enough to emit something)
-- The contract is called through a proxy which itself uses up the 2300 gas Use OpenZeppelin’s Address.sendValue() instead
-
-```solidity
-FILE: 2023-04-rubicon/contracts/utilities/FeeWrapper.sol
-
-118: (bool OK, ) = payable(_feeTo).call{value: _feeAmount}("");
-
-```
-[FeeWrapper.sol#L118](https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/utilities/FeeWrapper.sol#L118)
-
-
-
-##
-
-##
-
-## [L-13] Low-level calls that are unnecessary for the system should be avoided
-
-Low-level calls that are unnecessary for the system should be avoided whenever possible because low-level calls behave differently from a contract-type call. For example;
-
-address.call(abi.encodeWithSelector("fancy(bytes32)", mybytes))`` does not verify that a target is actually a contract, while ContractInterface(address).fancy(mybytes) does.
-
-Additionally, when calling out to functions declared view/pure, the solidity compiler would actually perform a staticcall providing additional security guarantees while a low-level call does not. Similarly, return values have to be decoded manually when performing low-level calls.
-
-Note: if a low-level call needs to be performed, consider relying on Contract.function.selector instead of encoding using a hardcoded ABI string
-
-```solidity
-FILE: 2023-04-rubicon/contracts/utilities/FeeWrapper.sol
-
-118: (bool OK, ) = payable(_feeTo).call{value: _feeAmount}("");
-
-```
-[FeeWrapper.sol#L118](https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/utilities/FeeWrapper.sol#L118)
-
-##
-
-## [L-] Low Level Calls With Solidity Version Before 0.8.14 Can Result In Optimiser Bug 
-
-The project contracts in scope are using low level calls with solidity version before 0.8.14 which can result in optimizer bug. https://medium.com/certora/overly-optimistic-optimizer-certora-bug-disclosure-2101e3f7994d
-
-Simliar findings in Code4rena contests for reference: https://code4rena.com/reports/2022-06-illuminate/#5-low-level-calls-with-solidity-version-0814-can-result-in-optimiser-bug
-
-
-276: assembly {
-          mstore(dest, mload(src))
-      }
-
-
-
-### Recommended Mitigation Steps
-Consider upgrading to at least solidity v0.8.15.
-
-##
-
-## [L-] Remove unused code
-
-This code is not used in the main project contract files, remove it or add event-emit Code that is not in use, suggests that they should not be present and could potentially contain insecure functionalities.
-
-function multiplyPowerBase2(
-        uint256 x0,
-        uint256 y0,
-        uint256 exp
-    ) internal pure returns (uint256, uint256) {
 
 ##
 
@@ -245,7 +201,7 @@ https://github.com/maxwoe/solidity_patterns/blob/master/security/EmergencyStop.s
 
 ##
 
-## [L-] Even with the onlyOwner or owner_only modifier, it is best practice to use the re-entrancy pattern
+## [L-] Even with the onlyOwner modifier, it is best practice to use the re-entrancy pattern
 
 It's still good practice to apply the reentry model as a precautionary measure in case the code is changed in the future to remove the onlyOwner modifier or the contract is used as a base contract for other contracts.
 
@@ -253,25 +209,80 @@ Using the reentry modifier provides an additional layer of security and ensures 
 
 So even if you followed the "check-effects-interactions" pattern correctly, it's still considered good practice to use the reentry modifier
 
+```solidity
+FILE: Breadcrumbs2023-05-venus/contracts/Comptroller.sol
+
+927: function addRewardsDistributor(RewardsDistributor _rewardsDistributor) external onlyOwner {
+961: function setPriceOracle(PriceOracle newOracle) external onlyOwner {
+973: function setMaxLoopsLimit(uint256 limit) external onlyOwner {
+
+```
+https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/Comptroller.sol#LL927C1-L927C96
+
+```solidity
+FILE: 2023-05-venus/contracts/VToken.sol
+
+505: function setProtocolShareReserve(address payable protocolShareReserve_) external onlyOwner {
+515: function setShortfallContract(address shortfall_) external onlyOwner {
+
+```
+https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/VToken.sol#LL505C4-L505C97
+
+```solidity
+FILE: 2023-05-venus/contracts/Shortfall/Shortfall.sol
+
+348: function updatePoolRegistry(address _poolRegistry) external onlyOwner {
+
+```
+https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/Shortfall/Shortfall.sol#LL348C5-L348C76
+
+```solidity
+FILE: 2023-05-venus/contracts/Rewards/RewardsDistributor.sol
+
+181: function grantRewardToken(address recipient, uint256 amount) external onlyOwner {
+219: function setContributorRewardTokenSpeed(address contributor, uint256 rewardTokenSpeed) external onlyOwner {
+249: function setMaxLoopsLimit(uint256 limit) external onlyOwner {
+
+```
+https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/Rewards/RewardsDistributor.sol#LL181C4-L181C86
+
+```solidity
+FILE: Breadcrumbs2023-05-venus/contracts/Pool/PoolRegistry.sol
+
+188:  function setProtocolShareReserve(address payable protocolShareReserve_) external onlyOwner {
+198:  function setShortfallContract(Shortfall shortfall_) external onlyOwner {
+
+```
+https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/Pool/PoolRegistry.sol#LL188C4-L188C97
+
+```solidity
+FILE: 2023-05-venus/contracts/RiskFund/RiskFund.sol
+
+99:  function setPoolRegistry(address _poolRegistry) external onlyOwner {
+110: function setShortfallContractAddress(address shortfallContractAddress_) external onlyOwner {
+126: function setPancakeSwapRouter(address pancakeSwapRouter_) external onlyOwner {
+205: function setMaxLoopsLimit(uint256 limit) external onlyOwner {
+
+```
+https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/RiskFund/RiskFund.sol#LL99C1-L100C1
+
 
 ### Recommended Mitigation:
 
+```solidity
   modifier noReentrant() {
         require(!locked, "Reentrant call");
         locked = true;
         _;
         locked = false;
     }
-
-##
-
-## [L-] Use BytesLib.sol library to safely covert bytes to uint256
-
-Use [toUint256()](https://github.com/GNSPS/solidity-bytes-utils/blob/master/contracts/BytesLib.sol) safely convert bytes to uint256 instead of plain way of conversion
+```
 
 ##
 
 ## [L-] Front running attacks by the onlyOwner
+
+
 
 ##
 
@@ -291,15 +302,7 @@ Consider using OpenZeppelin’s SafeCast library to prevent unexpected overflows
 
 ##
 
-## [L-] Missing Event for initialize
 
-Events help non-contract tools to track changes, and events prevent users from being surprised by changes Issuing event-emit during initialization is a detail that many projects skip
-
-
-
-### Recommendation: 
-
-Add Event-Emit
 
 ##
 
@@ -361,9 +364,115 @@ Use safeTransferOwnership which is safer. Use it as it is more secure due to 2-s
 
 ##
 
-## [L-] Initializers could be front-run
+## [L-]  INITIALIZE() FUNCTION CAN BE CALLED BY ANYBODY (Initializer could be front-run)
 
-Initializers could be front-run, allowing an attacker to either set their own values, take ownership of the contract, and in the best case forcing a re-deployment
+initialize() function can be called anybody when the contract is not initialized.
+
+More importantly, if someone else runs this function, they will have full authority because of the __Ownable2Step_init() function.
+
+### initialize() function
+
+```solidity
+FILE: 2023-05-venus/contracts/Comptroller.sol
+
+138: function initialize(uint256 loopLimit, address accessControlManager) external initializer {
+
+```
+https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/Comptroller.sol#L138
+
+```solidity
+FILE: 2023-05-venus/contracts/VToken.sol
+
+58: function initialize(
+        address underlying_,
+        ComptrollerInterface comptroller_,
+        InterestRateModel interestRateModel_,
+        uint256 initialExchangeRateMantissa_,
+        string memory name_,
+        string memory symbol_,
+        uint8 decimals_,
+        address admin_,
+        address accessControlManager_,
+        RiskManagementInit memory riskManagement,
+        uint256 reserveFactorMantissa_
+    ) external initializer {
+
+```
+https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/VToken.sol#LL59C4-L71C29
+
+```solidity
+FILE: 2023-05-venus/contracts/Shortfall/Shortfall.sol
+
+131: function initialize(
+        address convertibleBaseAsset_,
+        IRiskFund riskFund_,
+        uint256 minimumPoolBadDebt_,
+        address accessControlManager_
+    ) external initializer {
+
+```
+https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/Shortfall/Shortfall.sol#LL131C4-L136C29
+
+```solidity
+FILE: 2023-05-venus/contracts/Rewards/RewardsDistributor.sol
+
+111: function initialize(
+        Comptroller comptroller_,
+        IERC20Upgradeable rewardToken_,
+        uint256 loopsLimit_,
+        address accessControlManager_
+    ) external initializer {
+
+```
+https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/Rewards/RewardsDistributor.sol#LL111C5-L116C29
+
+```solidity
+FILE: Breadcrumbs2023-05-venus/contracts/Pool/PoolRegistry.sol
+
+164: function initialize(
+        VTokenProxyFactory vTokenFactory_,
+        JumpRateModelFactory jumpRateFactory_,
+        WhitePaperInterestRateModelFactory whitePaperFactory_,
+        Shortfall shortfall_,
+        address payable protocolShareReserve_,
+        address accessControlManager_
+    ) external initializer {
+
+```
+https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/Pool/PoolRegistry.sol#LL164C5-L171C29
+
+```solidity
+FILE: Breadcrumbs2023-05-venus/contracts/RiskFund/RiskFund.sol
+
+73: function initialize(
+        address pancakeSwapRouter_,
+        uint256 minAmountToConvert_,
+        address convertibleBaseAsset_,
+        address accessControlManager_,
+        uint256 loopsLimit_
+    ) external initializer {
+
+```
+https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/RiskFund/RiskFund.sol#LL73C5-L79C29
+
+
+### Recommended Mitigation Steps
+
+Add a control that makes initialize() only call the Deployer Contract;
+
+```solidity
+
+if (msg.sender != DEPLOYER_ADDRESS) {
+				revert NotDeployer();
+				}
+
+```
+
+##
+
+## [L-] Use .call instead of .transfer to send ether
+
+.transfer will relay 2300 gas and .call will relay all the gas. If the receive/fallback function from the recipient proxy contract has complex logic, using .transfer will fail, causing integration issues
 
 
 
