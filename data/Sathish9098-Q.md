@@ -56,38 +56,7 @@
 
 ##
 
-
-
-## [L-1] MIXING AND OUTDATED COMPILER
-
-### Impact 
-Mixing pragma is not recommended. Because different compiler versions have different meanings and behaviors, it also significantly raises maintenance costs. As a result, depending on the compiler version selected for any given file, deployed contracts may have security issues
-
-The minimum required version must be 0.8.19 otherwise, contracts will be affected by the following important bug fixes
-
-- 0.8.14:
-ABI Encoder: When ABI-encoding values from calldata that contain nested arrays, correctly validate the nested array length against calldatasize() in all cases.
-Override Checker: Allow changing data location for parameters only when overriding external functions.
-- 0.8.15
-Code Generation: Avoid writing dirty bytes to storage when copying bytes arrays.
-Yul Optimizer: Keep all memory side-effects of inline assembly blocks.
-- 0.8.16
-Code Generation: Fix data corruption that affected ABI-encoding of calldata values represented by tuples: structs at any nesting level; argument lists of external functions, events and errors; return value lists of external functions. The 32 leading bytes of the first dynamically-encoded value in the tuple would get zeroed when the last component contained a statically-encoded array.
-- 0.8.17
-Yul Optimizer: Prevent the incorrect removal of storage writes before calls to Yul functions that conditionally terminate the external EVM call.
-Apart from these, there are several minor bug fixes and improvements
-
-
-## Recommended Mitigation:
-Use More recent version of solidity 
-
-##
-
 ## [L-2] Lack of integer validations before executions
-
-
-## [L-3] safeApprove already depreacted in openzheplin contracts 
-
 
 
 ## [L-3] Unsafe typecasting method is used to cast bytes32 to uint256 
@@ -188,80 +157,7 @@ FILE: 2023-04-rubicon/contracts/utilities/FeeWrapper.sol
 ```
 [FeeWrapper.sol#L118](https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/utilities/FeeWrapper.sol#L118)
 
-##
 
-## [L-11] A single point of failure
-
-Impact
-The onlyOwner or auth roles has a single point of failure and onlyOwner can use critical a few functions.
-
-Even if protocol admins/developers are not malicious there is still a chance for Owner keys to be stolen. In such a case, the attacker can cause serious damage to the project due to important functions. In such a case, users who have invested in project will suffer high financial losses.
-
-> onlyOwner and auth functions 
-
-```solidity
-FILE : 2023-04-rubicon/contracts/RubiconMarket.sol
-
-25:   function setOwner(address owner_) external auth {
-1466: function setFeeBPS(uint256 _newFeeBPS) external auth returns (bool) {
-1471: function setMakerFee(uint256 _newMakerFee) external auth returns (bool) {
-1476: function setFeeTo(address newFeeTo) external auth returns (bool) {
-
-```
-[RubiconMarket.sol#L25](https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/RubiconMarket.sol#L25),[RubiconMarket.sol#L1466](https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/RubiconMarket.sol#L1466)
-
-(https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/RubiconMarket.sol#L955-L958)
-
-```solidity
-FILE: 2023-04-rubicon/contracts/utilities/poolsUtility/Position.sol
-
-   function buyAllAmountWithLeverage(
-        address quote,
-        address asset,
-        uint256 quotePayAmount,
-        uint256 leverage
-    ) external onlyOwner {
-
-function sellAllAmountWithLeverage(
-        address asset,
-        address quote,
-        uint256 assetPayAmount,
-        uint256 leverage
-    ) external onlyOwner {
-
-210: function closePosition(uint256 posId) external onlyOwner {
-226: function increaseMargin(uint256 posId, uint256 amount) external onlyOwner {
-242: function withdraw(address token, uint256 amount) external onlyOwner {
-
-```
-[Position.sol#L93-L98](https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/utilities/poolsUtility/Position.sol#L93-L98),[Position.sol#L107-L112](https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/utilities/poolsUtility/Position.sol#L107-L112),[Position.sol#L210](https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/utilities/poolsUtility/Position.sol#L210),[Position.sol#L226](https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/utilities/poolsUtility/Position.sol#L226),[Position.sol#L242](https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/utilities/poolsUtility/Position.sol#L242)
-
-```solidity
-FILE: 2023-04-rubicon/contracts/periphery/BathBuddy.sol
-
-function getReward(
-        IERC20 rewardsToken,
-        address holderRecipient
-    )
-        external
-        override
-        nonReentrant
-        whenNotPaused
-        updateReward(holderRecipient, address(rewardsToken))
-        onlyBathHouse
-
-function notifyRewardAmount(
-        uint256 reward,
-        IERC20 rewardsToken
-    ) external onlyOwner updateReward(address(0), address(rewardsToken)) {
-
-function setRewardsDuration(
-        uint256 _rewardsDuration,
-        address token
-    ) external onlyOwner {
-
-```
-[BathBuddy.sol#L168-L177](https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/periphery/BathBuddy.sol#L168-L177)
 
 ##
 
@@ -287,6 +183,60 @@ FILE: 2023-04-rubicon/contracts/utilities/FeeWrapper.sol
 
 ##
 
+## [L-] Low Level Calls With Solidity Version Before 0.8.14 Can Result In Optimiser Bug 
+
+The project contracts in scope are using low level calls with solidity version before 0.8.14 which can result in optimizer bug. https://medium.com/certora/overly-optimistic-optimizer-certora-bug-disclosure-2101e3f7994d
+
+Simliar findings in Code4rena contests for reference: https://code4rena.com/reports/2022-06-illuminate/#5-low-level-calls-with-solidity-version-0814-can-result-in-optimiser-bug
+
+
+276: assembly {
+          mstore(dest, mload(src))
+      }
+
+
+
+### Recommended Mitigation Steps
+Consider upgrading to at least solidity v0.8.15.
+
+##
+
+## [L-] Remove unused code
+
+This code is not used in the main project contract files, remove it or add event-emit Code that is not in use, suggests that they should not be present and could potentially contain insecure functionalities.
+
+function multiplyPowerBase2(
+        uint256 x0,
+        uint256 y0,
+        uint256 exp
+    ) internal pure returns (uint256, uint256) {
+
+##
+
+## [L-] Upgrade OpenZeppelin Contract/contracts-upgradeable Dependency
+
+An outdated OZ version 4.8.0 is used (which has known vulnerabilities, see: https://security.snyk.io/package/npm/@openzeppelin%2Fcontracts/4.8.0)
+
+```
+FILE: package.json
+
+51: "@openzeppelin/contracts": "^4.8.0",
+52: "@openzeppelin/contracts-upgradeable": "^4.8.0",
+
+
+``` 
+### Recommended Mitigation Steps
+Update OpenZeppelin Contracts Usage in package.json and require at least version of 4.8.3 via >=4.8.3
+
+##
+
+## [L-] Minting tokens to the zero address should be avoided
+
+The core function mint is used by users to mint an option position by providing token1 as collateral and borrowing the max amount of liquidity. Address(0) check is missing in both this function and the internal function _mint, which is triggered to mint the tokens to the to address. Consider applying a check in the function to ensure tokens aren't minted to the zero address
+
+
+##
+
 ## [L-14] Project Upgrade and Stop Scenario should be
 
 At the start of the project, the system may need to be stopped or upgraded, I suggest you have a script beforehand and add it to the documentation. This can also be called an ” EMERGENCY STOP (CIRCUIT BREAKER) PATTERN 
@@ -295,37 +245,130 @@ https://github.com/maxwoe/solidity_patterns/blob/master/security/EmergencyStop.s
 
 ##
 
-## [L-15] Update codes to avoid Compile Errors
+## [L-] Even with the onlyOwner or owner_only modifier, it is best practice to use the re-entrancy pattern
 
-```solidity
+It's still good practice to apply the reentry model as a precautionary measure in case the code is changed in the future to remove the onlyOwner modifier or the contract is used as a base contract for other contracts.
 
-warning[2018]: Warning: Function state mutability can be restricted to view
-   --> contracts/RubiconMarket.sol:297:5:
-    |
-297 |     function bump(bytes32 id_) external can_buy(uint256(id_)) {
-    |     ^ (Relevant source part starts here and spans across multiple lines).
+Using the reentry modifier provides an additional layer of security and ensures that your code is protected from potential reentry attacks regardless of any other security measures you take.
+
+So even if you followed the "check-effects-interactions" pattern correctly, it's still considered good practice to use the reentry modifier
 
 
+### Recommended Mitigation:
 
-warning[2018]: Warning: Function state mutability can be restricted to pure
-  --> contracts/utilities/FeeWrapper.sol:28:5:
-   |
-28 |     function calculateFee(
-   |     ^ (Relevant source part starts here and spans across multiple lines).
+  modifier noReentrant() {
+        require(!locked, "Reentrant call");
+        locked = true;
+        _;
+        locked = false;
+    }
+
+##
+
+## [L-] Use BytesLib.sol library to safely covert bytes to uint256
+
+Use [toUint256()](https://github.com/GNSPS/solidity-bytes-utils/blob/master/contracts/BytesLib.sol) safely convert bytes to uint256 instead of plain way of conversion
+
+##
+
+## [L-] Front running attacks by the onlyOwner
+
+##
+
+## [L-] abi.encodePacked() should not be used with dynamic types when passing the result to a hash function such as keccak256()
+
+Use abi.encode() instead which will pad items to 32 bytes, which will prevent hash collisions (e.g. abi.encodePacked(0x123,0x456) => 0x123456 => abi.encodePacked(0x1,0x23456), but abi.encode(0x123,0x456) => 0x0...1230...456). "Unless there is a compelling reason, abi.encode should be preferred". If there is only one argument to abi.encodePacked() it can often be cast to bytes() or bytes32() instead. If all arguments are strings and or bytes, bytes.concat() should be used instead
+
+##
+
+## [L-1] Consider using OpenZeppelin’s SafeCast library to prevent unexpected overflows when casting from uint256
+
+Using the SafeCast library can help prevent unexpected errors in your Solidity code and make your contracts more secure
+
+
+### Recommended Mitigation Steps:
+Consider using OpenZeppelin’s SafeCast library to prevent unexpected overflows when casting from uint256.
+
+##
+
+## [L-] Missing Event for initialize
+
+Events help non-contract tools to track changes, and events prevent users from being surprised by changes Issuing event-emit during initialization is a detail that many projects skip
 
 
 
-warning[2018]: Warning: Function state mutability can be restricted to view
-   --> contracts/utilities/poolsUtility/Position.sol:526:5:
-    |
-526 |     function _borrowLimit(
-    |     ^ (Relevant source part starts here and spans across multiple lines).
+### Recommendation: 
 
-```
+Add Event-Emit
 
+##
+
+## [L-] Events are missing sender information
+
+When an action is triggered based on a user's action, not being able to filter based on who triggered the action makes event processing a lot more cumbersome. Including the msg.sender the events of these types of action will make events much more useful to end users.
+
+##
+
+## [L-] Use Ownable2Step's transfer function rather than Ownable's for transfers of ownership
+
+[Ownable2Step](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/3d7a93876a2e5e1d7fe29b5a0e96e222afdc4cfa/contracts/access/Ownable2Step.sol#L31-L56) and [Ownable2StepUpgradeable](https://github.com/OpenZeppelin/openzeppelin-contracts-upgradeable/blob/25aabd286e002a1526c345c8db259d57bdf0ad28/contracts/access/Ownable2StepUpgradeable.sol#L47-L63) prevent the contract ownership from mistakenly being transferred to an address that cannot handle it (e.g. due to a typo in the address), by requiring that the recipient of the owner permissions actively accept via a contract call of its own
 
 
 ##
+
+## [L-] Upgradeable contract not initialized
+
+Upgradeable contracts are initialized via an initializer function rather than by a constructor. Leaving such a contract uninitialized may lead to it being taken over by a malicious user
+
+File: src/contracts/core/StrategyManager.sol
+
+/// @audit missing __Ownable_init()
+26:   contract StrategyManager is
+
+/// @audit missing __ReentrancyGuard_init()
+26:   contract StrategyManager is
+https://github.com/code-423n4/2023-04-eigenlayer/blob/398cc428541b91948f717482ec973583c9e76232/src/contracts/core/StrategyManager.sol#L26
+
+File: src/contracts/pods/DelayedWithdrawalRouter.sol
+
+/// @audit missing __Ownable_init()
+11:   contract DelayedWithdrawalRouter is Initializable, OwnableUpgradeable, ReentrancyGuardUpgradeable, Pausable, IDelayedWithdrawalRouter {
+
+/// @audit missing __ReentrancyGuard_init()
+11:   contract DelayedWithdrawalRouter is Initializable, OwnableUpgradeable, ReentrancyGuardUpgradeable, Pausable, IDelayedWith
+
+##
+
+## [L-]  Unsafe ERC20 operation(s)
+
+It is good to add a require() statement that checks the return value of token transfers or to use something like OpenZeppelin’s safeTransfer/safeTransferFrom unless one is sure the given token reverts in case of a failure. Failure to do so will cause silent failures of transfers and affect token accounting in contract.
+
+For example, Some tokens do not implement the ERC20 standard properly but are still accepted by most code that accepts ERC20 tokens. For example Tether (USDT)'s transfer() and transferFrom() functions do not return booleans as the specification requires, and instead have no return value. When these sorts of tokens are cast to IERC20, their function signatures do not match and therefore the calls made, revert
+
+##
+
+## [L-] Unbounded loop
+
+New items are pushed into the challenges array. Currently, the array can grow indefinitely. E.g. there's no maximum limit and there's no functionality to remove array values.
+
+If the array grows too large, calling functions that use challenges might run out of gas and revert.
+
+##
+
+## [L-] Use safeTransferOwnership instead of transferOwnership function
+
+Use safeTransferOwnership which is safer. Use it as it is more secure due to 2-stage ownership transfer
+
+##
+
+## [L-] Initializers could be front-run
+
+Initializers could be front-run, allowing an attacker to either set their own values, take ownership of the contract, and in the best case forcing a re-deployment
+
+
+
+
+
 
 ## NON CRITICAL FINDINGS
 
@@ -1014,6 +1057,18 @@ FILE : 2023-04-rubicon/contracts/RubiconMarket.sol
 
 ```
 [RubiconMarket.sol#L583](https://github.com/code-423n4/2023-04-rubicon/blob/511636d889742296a54392875a35e4c0c4727bb7/contracts/RubiconMarket.sol#L583)
+
+##
+
+## [NC-] Reduce the inheritance list
+
+https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/RiskFund/RiskFund.sol#L19-L25
+
+https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/VToken.sol#L19-L24
+
+https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/Comptroller.sol#L17-L23
+
+
 
 
 
