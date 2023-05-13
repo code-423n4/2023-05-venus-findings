@@ -1,21 +1,60 @@
 | Number | Optimization Details                                                                                      | Context |
 | :----: | :-------------------------------------------------------------------------------------------------------- | :-----: |
-| [N-01] | Users might not have the ability to exit before a critical change takes place |    2    |
-| [G-02] | Setting the constructor to payable payable                                                                |   21    |
-| [G-03] | Redundant variables                                                                                       |   4    |
-| [G-04] | Reorder the `if` statements for `revert` to have the less gas consuming before the expensive one          |   4   |
-| [G-05] | use nested if instead of `&&`                                                 |   12    |
-| [G-06] | Empty blocks should be removed or emit something         |   2   |
-| [G-07] | Using unchecked blocks to save gas |   1   |
-| [G-08] | Caching global variables is more expensive than using the actual variable(use msg.sender instead of caching it |   2   |
-| [G-09] | Optimize names to save gas                                                           |    All files    |
+| [L-01] | Users can borrow up to the borrowCap amount, but they should borrow less than that. |   2    |
+| [N-01] | Users might not have the ability to exit before a critical change takes place |    1    |
 
-Total 48 issues
+Total 3 issues
+### [L-01] Users can borrow up to the borrowCap amount, but they should borrow less than that.
+
+According to the docs from the code function `Borrowing that brings total borrows to borrow cap will revert`
+```solidity
+    /**
+     * @notice Set the given borrow caps for the given vToken markets. Borrowing that brings total borrows to or above borrow cap will revert.
+...
+```
+[contracts/Comptroller.sol#L839](https://github.com/code-423n4/2023-05-venus/blob/9853f6f4fe906b635e214b22de9f627c6a17ba5b/contracts/Comptroller.sol#L839)
+
+ this means that whevener user should not be able to hit borrowCap and revert if `nextTotalBorrows == borrowCap` but it doesn't
+```solidity
+        if (borrowCap != type(uint256).max) {
+            uint256 totalBorrows = VToken(vToken).totalBorrows();
+            uint256 nextTotalBorrows = totalBorrows + borrowAmount;
+            //          @audit should be, users can borrow more than allowed
+            //            if (nextTotalBorrows >= borrowCap) {
+            if (nextTotalBorrows > borrowCap) {
+                revert BorrowCapExceeded(vToken, borrowCap);
+            }
+        }
+```
+[contracts/Comptroller.sol#L354](https://github.com/code-423n4/2023-05-venus/blob/9853f6f4fe906b635e214b22de9f627c6a17ba5b/contracts/Comptroller.sol#L354)
+## Recommended Mitigation Steps
+Same issue with supplyCap or change documentation
+```diff
+        if (borrowCap != type(uint256).max) {
+            uint256 totalBorrows = VToken(vToken).totalBorrows();
+            uint256 nextTotalBorrows = totalBorrows + borrowAmount;
+-            if (nextTotalBorrows > borrowCap) {
++            if (nextTotalBorrows >= borrowCap) {
+                revert BorrowCapExceeded(vToken, borrowCap);
+            }
+        }
+```
+
+```diff
+        if (supplyCap != type(uint256).max) {
+            uint256 vTokenSupply = VToken(vToken).totalSupply();
+            Exp memory exchangeRate = Exp({ mantissa: VToken(vToken).exchangeRateStored() });
+            uint256 nextTotalSupply = mul_ScalarTruncateAddUInt(exchangeRate, vTokenSupply, mintAmount);
+-            if (nextTotalSupply > supplyCap) {
++            if (nextTotalSupply >= supplyCap) {
+                revert SupplyCapExceeded(vToken, supplyCap);
+            }
+        }
+```
+
 
 ### [N-01] Users might not have the ability to exit before a critical change takes place
 
-## Proof of Concept
-Provide direct links to all referenced code in GitHub. Add screenshots, logs, or any other relevant proof that illustrates the concept.
 According to report by [openzeppelin](https://blog.openzeppelin.com/compound-finance-patch-audit/)
 >  two functions users may need to exit Compound (namely `redeem` and `repayBorrow`) always available to users, so users have the ability to exit before a critical change takes place. 
 
@@ -46,8 +85,6 @@ In current implementation protocol introduced ways to forbid users to exit proto
 ....
 ```
 [contracts/Comptroller.sol#L297](https://github.com/code-423n4/2023-05-venus/blob/9853f6f4fe906b635e214b22de9f627c6a17ba5b/contracts/Comptroller.sol#L297)
-
-## Tools Used
 
 ## Recommended Mitigation Steps
 Remove those checks if you would like to follow compound principals for user`s convenience.
