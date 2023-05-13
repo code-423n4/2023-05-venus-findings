@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "OMEN",
+  "risk": "3",
+  "title": "front run attack can happen in increaseAllowance and decreaseAllowance",
+  "issueId": 149,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/149"
+}
