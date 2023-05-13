@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "Praise",
+  "risk": "2",
+  "title": "No check against incorrect prices in preRedeemHook() function",
+  "issueId": 143,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/143"
+}
