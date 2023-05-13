@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "sbh",
+  "risk": "3",
+  "title": "Reentrancy vulnerability in VToken.sol",
+  "issueId": 130,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/130"
+}
