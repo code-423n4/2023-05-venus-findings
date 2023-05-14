@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "0xnev",
+  "risk": "3",
+  "title": "Wrong reentrancy modifier `nonReentrant()` defined in `VToken.sol`",
+  "issueId": 165,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/165"
+}
