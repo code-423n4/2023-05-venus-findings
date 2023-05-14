@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "Bauchibred",
+  "risk": "2",
+  "title": "Comptroller.sol: `setCollateralFactor()` should implement more checks in regards to `LiquidationThresholdMantissa` and `CollateralFactorMantissa`",
+  "issueId": 177,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/177"
+}
