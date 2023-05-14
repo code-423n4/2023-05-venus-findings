@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "mussucal",
+  "risk": "2",
+  "title": "When preLiquidateHook() is called from VToken.liquidateBorrow(), the actualRepayAmount should be passed as parameter rather than repayAmount.",
+  "issueId": 195,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/195"
+}
