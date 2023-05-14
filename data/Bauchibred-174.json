@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "Bauchibred",
+  "risk": "2",
+  "title": "WhitePaperInterestRateModel.sol: Inaccurate assumption of the interest rate model since blocksPerYear is wrongly set to 2102400",
+  "issueId": 174,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/174"
+}
