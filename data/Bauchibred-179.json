@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "Bauchibred",
+  "risk": "2",
+  "title": "utilizationRate() could DOS in both WhitePaperInterestRateModel.sol or BaseJumpRateModelV2.sol",
+  "issueId": 179,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/179"
+}
