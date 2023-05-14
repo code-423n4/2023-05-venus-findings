@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "mussucal",
+  "risk": "3",
+  "title": "During exitMarket vTokens of msg.sender is lost forever. ",
+  "issueId": 191,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/191"
+}
