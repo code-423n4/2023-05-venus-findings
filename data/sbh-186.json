@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "sbh",
+  "risk": "3",
+  "title": "enterMarkets() and exitMarket() functions are vulnerable to reentrancy attacks in Comptroller.sol",
+  "issueId": 186,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/186"
+}
