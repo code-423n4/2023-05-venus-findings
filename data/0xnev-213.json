@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "0xnev",
+  "risk": "2",
+  "title": "Availability of price of underlying asset of vToken returned by price oracle not checked ",
+  "issueId": 213,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/213"
+}
