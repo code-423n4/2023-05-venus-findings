@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "0xnev",
+  "risk": "2",
+  "title": "User can front run owner granting rewards if they have accrued sufficient rewards",
+  "issueId": 169,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/169"
+}
