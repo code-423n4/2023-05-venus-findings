@@ -1,6 +1,6 @@
 ## Introduction
 
-Venus QA report was done by martin and anonresercher, with a main focus on the low severity and non-critical security aspects of the implementaion and logic of the project.
+Venus QA report was done by martin and anonresercher, with a main focus on the low severity and non-critical security aspects of the implementation and logic of the project.
 
 ## Findings Summary
 
@@ -11,7 +11,7 @@ The following issues were found, categorized by their severity:
 | ID      | Title                                                         | Severity     |
 | ------- | ------------------------------------------------------------- | ------------ |
 | [NC-01] | Prefer battle-tested code over reimplementing common patterns | Non-Critical |
-| [NC-02] | Redudant check                                                | Non-Critical |
+| [NC-02] | Redundant check                                               | Non-Critical |
 | [NC-03] | Event should be emitted for important state changes           | Non-Critical |
 | [NC-04] | Event was emitted earlier                                     | Non-Critical |
 | [NC-05] | Bad formatting                                                | Non-Critical |
@@ -19,7 +19,7 @@ The following issues were found, categorized by their severity:
 
 ### [NC-01] Prefer battle-tested code over reimplementing common patterns
 
-Replace the `nonReentrant` modifier in VToken with the nonReentrant from OpenZeppelin, since it is well tested and optimized.
+Replace the `nonReentrant` modifier in VToken with the nonReentrant from OpenZeppelin, since it is well-tested and optimized.
 
 ### [NC-02] Redudant check
 
