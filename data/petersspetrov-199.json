@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "petersspetrov",
+  "risk": "2",
+  "title": "Use of safeApprove might cause _swapAsset to revert ",
+  "issueId": 199,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/199"
+}
