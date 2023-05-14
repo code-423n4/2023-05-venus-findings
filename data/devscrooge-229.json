@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "devscrooge",
+  "risk": "3",
+  "title": "Slippage control can be incorrectly performed",
+  "issueId": 229,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/229"
+}
