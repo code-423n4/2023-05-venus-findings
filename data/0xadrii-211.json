@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "0xadrii",
+  "risk": "3",
+  "title": "It is possible to bypass `liquidateAccount()` execution restrictions due to missing rates and asset's prices updates",
+  "issueId": 211,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/211"
+}
