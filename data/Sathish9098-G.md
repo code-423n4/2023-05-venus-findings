@@ -174,7 +174,19 @@ https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e625
 
 ##
 
-## [G-] 
+## [G-] Caching msg.sender cause more gas
+
+Use msg.sender directly without caching 
+
+```solidity
+FILE: 2023-05-venus/contracts/VToken.sol
+
+136: address src = msg.sender;
+628: address src = msg.sender;
+648: address src = msg.sender;
+
+```
+https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/VToken.sol#L136
 
 
 [G-] Save gas by checking against default WETH address
@@ -218,6 +230,10 @@ FILE: 2023-05-venus/contracts/Rewards/RewardsDistributor.sol
 
 ```
 https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/Rewards/RewardsDistributor.sol#L268
+
+##
+
+## [G-] Don't initialize with zero value 
 
 
 [G-] <x> += <y>/<x> -= <y> costs more gas than <x> = <x> + <y>/<x> = <x> - <y> for state variables  
