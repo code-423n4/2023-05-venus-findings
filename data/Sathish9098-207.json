@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "Sathish9098",
+  "risk": "3",
+  "title": "Tokens may be locked permanently without checking receiver address with zero address",
+  "issueId": 207,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/207"
+}
