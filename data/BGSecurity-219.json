@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "BGSecurity",
+  "risk": "2",
+  "title": "Front-running risk in key admin actions",
+  "issueId": 219,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/219"
+}
