@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "sbh",
+  "risk": "3",
+  "title": "The priceOracle function is vulnerable to price oracle attacks in Comptroller.sol",
+  "issueId": 188,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/188"
+}
