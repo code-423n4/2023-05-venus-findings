@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "RaymondFam",
+  "risk": "2",
+  "title": "No slippage protections on VToken.mint(), VToken.mintBehalf(), VToken.redeem(), and VToken.redeemUnderlying()",
+  "issueId": 231,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/231"
+}
