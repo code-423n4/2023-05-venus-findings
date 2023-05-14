@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "0xkazim",
+  "risk": "2",
+  "title": "calling function `_startAuction` might fail because of the check for  `minimumPoolBadDebt` ",
+  "issueId": 234,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/234"
+}
