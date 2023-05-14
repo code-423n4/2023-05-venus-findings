@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "eazyg",
+  "risk": "3",
+  "title": "A reentrancy vulnerability is found in the _repayBorrowFresh function of the VToken contract.",
+  "issueId": 190,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/190"
+}
