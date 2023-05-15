@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "tnevler",
+  "risk": "2",
+  "title": "maxLoopsLimit does not always reduce the possibility of DoS",
+  "issueId": 419,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/419"
+}
