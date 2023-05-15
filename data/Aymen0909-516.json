@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "Aymen0909",
+  "risk": "3",
+  "title": "`vTokenPrice` used instead of `weightedVTokenPrice` when calculating `snapshot.totalCollateral` in `_getHypotheticalLiquiditySnapshot`",
+  "issueId": 516,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/516"
+}
