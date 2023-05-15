@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "BugBusters",
+  "risk": "3",
+  "title": "Adding `badDebt` in `_exchangeRateStored` function could cause loss of funds for the user",
+  "issueId": 311,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/311"
+}
