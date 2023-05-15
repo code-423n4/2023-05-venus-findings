@@ -1,0 +1,6 @@
+In the contract VToken, the `accrueInterest() `function is a very important function. If this function is potentially attacked by Dos, then the entire system core will be attacked by Dos too.
+
+Note that there is a line of code in the `accrueInterest()` function that calculates the borrowing rate:
+`uint256 borrowRateMantissa = interestRateModel. getBorrowRate(cashPrior, borrowsPrior, reservesPrior);`
+
+This statement may call the `WhitePaperInterestRateModel` contract or the `JumpRateModelV2` contract for calculation. During the calculation process, there is a statement `(borrows * BASE) / (cash + borrows - reserves)`, if `cash + borrows - reserves <= 0`, then the program execution will be always revert. The attacker may increase the value of reserves by manually calling the `addReserves()` function of the VToken contract. Although the cost of the attack may be relatively high, it will be a potential risk, so consider this problem as a QA, and it is very easy to fix it. Simple, just add a judgment statement `if(cash + borrows - reserves <= 0) return 0;` can make the program stronger.
