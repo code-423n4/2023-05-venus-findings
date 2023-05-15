@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "Emmanuel",
+  "risk": "3",
+  "title": "Reentrancy attack in `RewardsDistributor#claimRewardToken` function",
+  "issueId": 472,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/472"
+}
