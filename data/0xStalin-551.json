@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "0xStalin",
+  "risk": "3",
+  "title": "Incorrectly calculation of the total tokens to be seized because of the difference on the scale of magnitude for the prices of the underlying assets",
+  "issueId": 551,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/551"
+}
