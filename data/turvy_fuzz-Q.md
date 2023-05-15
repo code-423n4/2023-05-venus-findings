@@ -5,13 +5,13 @@ the error message shown: **"finally path must be convertible base asset"** is wr
 **Recommendation:**
 Change to **"final path must be convertible base asset"**
 
-### Suggestion to emit update event right before updating state
-emit update event right before updating state to avoid extra code for memory declaration and allocation just for emitting event
+###  Refactoring suggestion to emit update event right before updating state
+emit update event right before updating state to avoid extra code for memory declaration and allocation above just for emitting event
 i.e **instead of:**
  `uint256 oldMinAmountToConvert = minAmountToConvert;`
  `minAmountToConvert = minAmountToConvert_;`
  `emit MinAmountToConvertUpdated(oldMinAmountToConvert, minAmountToConvert_);`
-**Suggestion:**
+**Suggested:**
  `emit MinAmountToConvertUpdated(minAmountToConvert, minAmountToConvert_);`
  `minAmountToConvert = minAmountToConvert_;
 `
