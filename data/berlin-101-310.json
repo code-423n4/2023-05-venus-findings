@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "berlin-101",
+  "risk": "2",
+  "title": "Wrong value for yearly blocks used in WhitePaperInterestRateModel causes incorrect interest calculations and a potential loss",
+  "issueId": 310,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/310"
+}
