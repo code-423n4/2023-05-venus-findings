@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "0x8chars",
+  "risk": "3",
+  "title": "[H-01] Inflating the exchange rate can dos other users",
+  "issueId": 426,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/426"
+}
