@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "Nyx",
+  "risk": "2",
+  "title": "Positions shouldn't be liquidatable when repay is not allowed.",
+  "issueId": 324,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/324"
+}
