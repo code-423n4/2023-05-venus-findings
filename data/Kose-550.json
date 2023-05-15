@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "Kose",
+  "risk": "3",
+  "title": "Borrower is not given time to prevent liquidate when Action.LIQUIDATE enters and exits the pause state ",
+  "issueId": 550,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/550"
+}
