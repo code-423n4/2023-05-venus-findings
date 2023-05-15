@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "jasonxiale",
+  "risk": "2",
+  "title": "Shortfall.placeBid lacks of expiration timestamp check ",
+  "issueId": 409,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/409"
+}
