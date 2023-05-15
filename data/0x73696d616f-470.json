@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "0x73696d616f",
+  "risk": "2",
+  "title": "ERC777 tokens, it's possible to surpass the supply cap by calling mint on `VToken` with 0 amount",
+  "issueId": 470,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/470"
+}
