@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "sashik_eth",
+  "risk": "2",
+  "title": "WhitePaperInterestRateModel#blocksPerYear constant is incorrect ",
+  "issueId": 326,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/326"
+}
