@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "0xbepresent",
+  "risk": "2",
+  "title": "`Comptroller.exitMarket()` does not get an updated `exchange rate` causing innacurate exit validations",
+  "issueId": 502,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/502"
+}
