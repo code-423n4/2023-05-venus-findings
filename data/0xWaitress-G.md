@@ -23,6 +23,8 @@ There are 28 places across ShortFall, RewardDistributor, RiskFund, PoolRegistry 
 
 2. the placebid function in Shortfall is unnecessarily gas intensive since some tokens with `auction.marketDebt[auction.markets[i] == 0` can be skipped from the function `transferFrom`. Since not necessarily all markets have bad debt in an auction.
 
+https://github.com/code-423n4/2023-05-venus/blob/main/contracts/Shortfall/Shortfall.sol#L175-L195
+
 ```solidity
         for (uint256 i; i < marketsCount; ++i) {
             VToken vToken = VToken(address(auction.markets[i]));
