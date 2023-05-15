@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "lukris02",
+  "risk": "2",
+  "title": "The ```_setMaxLoopsLimit``` function does not fulfill its purpose",
+  "issueId": 404,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/404"
+}
