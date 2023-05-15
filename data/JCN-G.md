@@ -58,7 +58,7 @@ Below are the overall average gas savings for the following tested functions, wi
 | [G-12](#move-calldata-pointer-to-top-of-for-loop-to-avoid-offset-calculations) | Move calldata pointer to top of for loop to avoid offset calculations | 1 |
 | [G-13](#using-storage-instead-of-memory-for-structsarrays-saves-gas) | Using storage instead of memory for structs/arrays saves gas | 1 |
 | [G-14](#multiple-accesses-of-a-mappingarray-should-use-a-storage-pointer) | Multiple accesses of a mapping/array should use a storage pointer | - |
-| [G-15](#use-do-while-loops-instead-of-for-loops) | Use `do while` loops instead of for loops | - |
+| [G-15](#use-do-while-loops-instead-of-for-loops) | Use `do while` loops instead of for loops | 10 |
 | [G-16](#use-assembly-to-perform-efficient-back-to-back-calls) | Use assembly to perform efficient back-to-back calls | 1 |
 
 ## State variables only set in the constructor should be declared immutable
