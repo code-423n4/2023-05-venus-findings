@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "0xkazim",
+  "risk": "2",
+  "title": "attacker can prevent other user to call `releaseFunds` by reentrancy attack ",
+  "issueId": 414,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/414"
+}
