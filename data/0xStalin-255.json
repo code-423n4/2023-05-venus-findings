@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "0xStalin",
+  "risk": "3",
+  "title": "Borrower can cause a DoS by frontrunning a liquidation and repaying as low as 1 wei of the current debt",
+  "issueId": 255,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/255"
+}
