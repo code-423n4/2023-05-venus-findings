@@ -7,9 +7,18 @@ https://github.com/code-423n4/2023-05-venus/blob/main/contracts/RiskFund/RiskFun
 Recommendation
 So instead of performing unnecassary arithmetic that it's result will always be 0, simply set `poolsAssetsReserves[comptroller][underlyingAsset]` = `0` in line 250 and save the gas cost for the extra arithmetic operation
 
-### convert same require checks to a single modifier
-same checks in both functions:
-**require(ComptrollerInterface(comptroller).isComptroller(), "ReserveHelpers: Comptroller address invalid");**
-**require(asset != address(0), "ReserveHelpers: Asset address invalid");**
+### emit update event right before updating state
+emit update event right before updating state to avoid unnecessary memory declaration and allocation just for emitting event and save gas
+i.e **instead of:**
+ `address oldShortfallContractAddress = shortfall;`
+ `shortfall = shortfallContractAddress_;`
+ `emit ShortfallContractUpdated(oldShortfallContractAddress, shortfallContractAddress_);`
+**optimized:**
+ `emit ShortfallContractUpdated(shortfall, shortfallContractAddress_);`
+ `shortfall = shortfallContractAddress_;`
 
-https://github.com/code-423n4/2023-05-venus/blob/main/contracts/RiskFund/ReserveHelpers.sol#L39
+Multiple instances of this:
+https://github.com/code-423n4/2023-05-venus/blob/main/contracts/RiskFund/ProtocolShareReserve.sol#L55
+https://github.com/code-423n4/2023-05-venus/blob/main/contracts/RiskFund/RiskFund.sol#L117
+https://github.com/code-423n4/2023-05-venus/blob/main/contracts/RiskFund/RiskFund.sol#L128
+https://github.com/code-423n4/2023-05-venus/blob/main/contracts/RiskFund/RiskFund.sol#L140
