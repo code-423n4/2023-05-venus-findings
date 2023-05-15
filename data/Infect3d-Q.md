@@ -86,6 +86,59 @@ File: contracts\VToken.sol
 348:     }
 ```
 
+
+## L-04 - `oracle.getUnderlyingPrice` should always be preceded by `oracle.updatePrice`
+Oracles in Venus are based on ResilientOracle (if what was shared in channel was correct) from this repo : https://github.com/VenusProtocol/oracle/blob/develop/contracts/ResilientOracle.sol 
+The `updatePrice` function comment states that it should always be called before calling getUnderlyingPrice. While this is mostly the case in the code, there are some exceptions:
+
+
+https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/Comptroller.sol#L755-L757
+```solidity
+File: contracts\Comptroller.sol
+755:         if (newCollateralFactorMantissa != 0 && oracle.getUnderlyingPrice(address(vToken)) == 0) { //@audit ? missing updatePrice?
+756:             revert PriceError(address(vToken));
+757:         }
+```
+
+https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/Lens/PoolLens.sol#L266-L271
+```solidity
+File: contracts\Lens\PoolLens.sol
+263:         for (uint256 i; i < markets.length; ++i) {
+264:             BadDebt memory badDebt;
+265:             badDebt.vTokenAddress = address(markets[i]);
+266:             badDebt.badDebtUsd =
+267:                 VToken(address(markets[i])).badDebt() *
+268:                 priceOracle.getUnderlyingPrice(address(markets[i])); //@audit - L04 Missing call to updatePrice, meaning badDebtUsd can be wrong
+269:             badDebtSummary.badDebts[i] = badDebt;
+270:             totalBadDebtUsd = totalBadDebtUsd + badDebt.badDebtUsd;
+271:         }
+```
+https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/Lens/PoolLens.sol#L401-L410
+```solidity
+File: contracts\Lens\PoolLens.sol
+401:     function vTokenUnderlyingPrice(VToken vToken) public view returns (VTokenUnderlyingPrice memory) {
+402:         ComptrollerViewInterface comptroller = ComptrollerViewInterface(address(vToken.comptroller()));
+403:         PriceOracle priceOracle = comptroller.oracle();
+404: 
+405:         return
+406:             VTokenUnderlyingPrice({
+407:                 vToken: address(vToken),
+408:                 underlyingPrice: priceOracle.getUnderlyingPrice(address(vToken)) //@audit ? missing updatePrice?
+409:             });
+410:     }
+```
+https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/Comptroller.sol#L1368-L1374
+```solidity
+File: contracts\Comptroller.sol
+1368:     function _safeGetUnderlyingPrice(VToken asset) internal view returns (uint256) {
+1369:         uint256 oraclePriceMantissa = oracle.getUnderlyingPrice(address(asset));
+1370:         if (oraclePriceMantissa == 0) {
+1371:             revert PriceError(address(asset));
+1372:         }
+1373:         return oraclePriceMantissa;
+1374:     }
+```
+
 ____
 
 ## N-01 Ownable2StepUpgradeable already inherited by AccessControlledV8
