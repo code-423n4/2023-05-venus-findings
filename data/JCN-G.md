@@ -39,7 +39,7 @@ Below are the overall average gas savings for the following tested functions, wi
 *Notes*: 
 
 - The [Gas report](#gasreport-output-with-all-optimizations-applied) output, after all optimizations have been applied, can be found at the end of the report.
-- The final diffs for each contract, with all the optimizations applied, can be found [here]().
+- The final diffs for each contract, with all the optimizations applied, can be found [here](https://gist.github.com/0xJCN/403d8b821361aac8d809c263b0784657).
 
 ## Gas Optimizations
 | Number |Issue|Instances|
