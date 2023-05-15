@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "joestakey",
+  "risk": "2",
+  "title": "Repayments can be paused but still accrue interest",
+  "issueId": 505,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/505"
+}
