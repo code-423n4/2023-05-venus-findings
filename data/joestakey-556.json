@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "joestakey",
+  "risk": "2",
+  "title": "`borrowRatePerBlock()` is not fresh and will not include interests accrued",
+  "issueId": 556,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/556"
+}
