@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "fatherOfBlocks",
+  "risk": "2",
+  "title": "possible DoS due to hardcoded blocksPerYear and blockchain upgrades",
+  "issueId": 499,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/499"
+}
