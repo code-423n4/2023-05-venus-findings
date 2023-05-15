@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "BugBusters",
+  "risk": "3",
+  "title": "User will be forecefully liquidated when supply cap on the vtoken is reached.",
+  "issueId": 277,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/277"
+}
