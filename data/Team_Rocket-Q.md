@@ -58,6 +58,35 @@ Manual review
 
 Use a `bool` value indicating whether the transfer of reward tokens for successful. Refactor `claimRewardToken(address,VToken[])` and `grantRewardToken` to account for the new `bool` return value.
 
+### [L-03] `PoolsLens.getPoolBadDebt()` returns non-truncated USD value.
+
+[PoolLens.sol#L262-L271](https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/Lens/PoolLens.sol#L262-L271)
+
+```solidity
+        // // Calculate the bad debt is USD per market
+        for (uint256 i; i < markets.length; ++i) {
+            BadDebt memory badDebt;
+            badDebt.vTokenAddress = address(markets[i]);
+            //@audit divide badDebtUsd by 1e18
+            badDebt.badDebtUsd =
+                VToken(address(markets[i])).badDebt() *
+                priceOracle.getUnderlyingPrice(address(markets[i]));
+            badDebtSummary.badDebts[i] = badDebt;
+            totalBadDebtUsd = totalBadDebtUsd + badDebt.badDebtUsd;
+        }
+```
+
+Both `badDebt()` and `getUnderlyingPrice()` are 1e18 decimals based. 
+
+#### Tools Used
+
+Manual review
+
+#### Recommended Mitigation Steps
+
+Divide the results with 1e18 as it is done in other places ([ex1](https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/Shortfall/Shortfall.sol#L393), [ex2](https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/Comptroller.sol#LL1320C84-L1320C95)).
+
+
 ## Non-Critical Findings
 
 ### [NC-01] Incorrect comment to describe `protocolShareReserve` state variable
