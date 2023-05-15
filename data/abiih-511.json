@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "abiih",
+  "risk": "3",
+  "title": "A user asset cannot be seized if the supplied market's collateral to seize(vTokenCollateral)is different than the pool(seizerContract) where the liquidateBorrow function is called.",
+  "issueId": 511,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/511"
+}
