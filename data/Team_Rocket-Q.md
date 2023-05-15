@@ -60,7 +60,11 @@ Use a `bool` value indicating whether the transfer of reward tokens for successf
 
 ### [L-03] `PoolsLens.getPoolBadDebt()` returns non-truncated USD value.
 
+### Location
+
 [PoolLens.sol#L262-L271](https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/Lens/PoolLens.sol#L262-L271)
+
+### Description
 
 ```solidity
         // // Calculate the bad debt is USD per market
@@ -117,3 +121,25 @@ Fix the comment to correctly describe `protocolShareReserve`.
       */
      address payable public protocolShareReserve;
 ```
+
+### [NC-02] Incorrect comment to describe values in `newSupplyCaps` and `newBorrowCaps`
+
+#### Location
+
+[Comptroller.sol#L826-L835](https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/Comptroller.sol#L826-L835)
+
+[Comptroller.sol#L852-L861](https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/Comptroller.sol#L852-L861)
+
+#### Description
+
+The comment that describes `newSupplyCaps` and `newBorrowCaps` states that a value of `-1` corresponds to an unlimited supply/borrow. This is impossible since the `newSupplyCaps` and `newBorrowCaps` are both of type `uint256[] calldata` and cannot store negative integers.
+
+Furthermore, the code in [`preMintHook`](https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/Comptroller.sol#LL262C30-L262C30) and [`preBorrowHook`](https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/Comptroller.sol#L351) check for `type(uint256).max`.
+
+#### Tools Used
+
+Manual review
+
+#### Recommended Mitigation Steps
+
+Fix the comments to correctly describe that an unlimited supply/borrow is represented by `type(uint256).max`.
