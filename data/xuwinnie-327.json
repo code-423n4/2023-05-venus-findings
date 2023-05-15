@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "xuwinnie",
+  "risk": "2",
+  "title": "_ensureMaxLoops causes liquidateAccount to fail in certain condition",
+  "issueId": 327,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/327"
+}
