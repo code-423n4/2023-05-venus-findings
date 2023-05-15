@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "foxb868",
+  "risk": "2",
+  "title": "Missing Check for Successful Liquidity Snapshot.",
+  "issueId": 350,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/350"
+}
