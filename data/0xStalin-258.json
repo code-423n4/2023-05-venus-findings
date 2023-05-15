@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "0xStalin",
+  "risk": "2",
+  "title": "Incorrect usage of comparisson operators could lead to exclude the max and min values from the valid ranges to execute certain operations",
+  "issueId": 258,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/258"
+}
