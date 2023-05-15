@@ -65,7 +65,7 @@ If the current allowance is less than the allowance to be reduced, set allowance
 
 [_exchangeRateStored](https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/VToken.sol#L1463) relies on the balance of `underlying`. Similar to `ERC4626`, mint can be sandwiched.     
 Although [here](https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/VToken.sol#L776) the calculation uses scaling to make the attack cost amplified `expScale` times.      
-By contrast, [redeem](https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/VToken.sol#L837) limits the redeem amount to be 0.     
+By contrast, [redeem](https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/VToken.sol#L837) limits the redeem amount not to be 0.     
  
 ## Poc
 
