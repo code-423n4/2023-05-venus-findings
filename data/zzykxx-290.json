@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "zzykxx",
+  "risk": "2",
+  "title": "The constant `blocksPerYear` in `WhitePaperInterestRateModel.sol` is incorrect",
+  "issueId": 290,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/290"
+}
