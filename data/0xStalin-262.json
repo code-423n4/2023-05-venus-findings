@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "0xStalin",
+  "risk": "2",
+  "title": "Redeemer can't specify the address where to receive the funds of the underlying asset",
+  "issueId": 262,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/262"
+}
