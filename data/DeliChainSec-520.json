@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "DeliChainSec",
+  "risk": "2",
+  "title": "Bad debt bidders’ funds are locked forever when Shortfall address is changed during ongoing debt auction",
+  "issueId": 520,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/520"
+}
