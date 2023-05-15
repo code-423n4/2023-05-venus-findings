@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "foxb868",
+  "risk": "3",
+  "title": "Lack of Access Control in Initialize Function Allows Unauthorized Modification of Contract State.",
+  "issueId": 359,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/359"
+}
