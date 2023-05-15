@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "peanuts",
+  "risk": "2",
+  "title": "Bad debt calculation may be wrong when calling Shortfall#_startAuction() if VTokens have different decimals ",
+  "issueId": 325,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/325"
+}
