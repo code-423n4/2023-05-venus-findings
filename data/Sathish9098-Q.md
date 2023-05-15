@@ -2,57 +2,33 @@
 
 | Issue Count | Issues | Instances |
 |-----------------|-----------------|-----------------|
-| [L-1] | MIXING AND OUTDATED COMPILER   |  4 |
-| [L-2] | Sanity/Threshold/Limit Checks   | 10  |
-| [L-3] | Unsafe typecasting method is used to cast bytes32 to uint256   | 5  |
-| [L-4] | Consider using OpenZeppelin’s SafeCast library to prevent unexpected overflows when casting from uint256    | 13  |
-| [L-5] | Prevent division by 0  | 3  |
-| [L-6] | Function may run out of gas  | -  |
-| [L-7] |  Array lengths not checked before batch operations | 1  |
-| [L-8] | Missing event and or timelock for critical parameter change | -  |
-| [L-9] |  Don’t use payable.call()  |  1 |
-| [L-10] | Inconsistent spacing in comments  | -  |
-| [L-11] | A single point of failure   | 12  |
-| [L-12] | Loss of precision due to rounding   | 5  |
-| [L-13] | Low-level calls that are unnecessary for the system should be avoided   |  1 |
-| [L-14] | Project Upgrade and Stop Scenario should be  | -  |
-| [L-15] |  Update codes to avoid Compile Errors  | 3  |
+| [L-1] | Converting a string to bytes using bytes(string),Running out of gas can occur if the string is excessively large   |  1 |
+| [L-2] | LACK OF CHECKS THE INTEGER RANGES   | 6  |
+| [L-3] | Missing Event for initialize   | 5  |
+| [L-4] | Upgrade OpenZeppelin Contract/contracts-upgradeable Dependency    | 2  |
+| [L-5] | Even with the onlyOwner modifier, it is best practice to use the re-entrancy pattern  | 15  |
+| [L-6] | INITIALIZE() FUNCTION CAN BE CALLED BY ANYBODY (Initializer could be front-run)  | 6  |
+| [L-7] |  Use safeTransferOwnership instead of transferOwnership function | 2  |
+| [L-8] | DECIMALS() NOT PART OF ERC20 STANDARD | 2  |
+| [L-9] | Missing ReEntrancy Guard to external functions when transfer tokens  | 2  |
+| [L-] |  Project Upgrade and Stop Scenario should be  |  1 |
+
 
 # NON CRITICAL FINDINGS
 
 | Issue Count | Issues | Instances |
 |-----------------|-----------------|-----------------|
-| [NC-1]  | Named imports can be used  |  3 |
-| [NC-2]  | Remove commented out code  |  - |
-| [NC-3]  |  Test environment comments and codes should not be in the main version | 1  |
-| [NC-4]  | Add a timelock to critical functions  |  - |
-| [NC-5]  | No same value control  |  - |
-| [NC-6]  | Critical changes should use two-step procedure  | -  |
-| [NC-7]  | Emit both old and new values in critical changes  |  - |
-| [NC-8]  | Missing NATSPEC  |  - |
-| [NC-9]  | For functions, follow Solidity standard naming conventions (internal function style rule)   |  14 |
-| [NC-10]  | FUNCTIONS,PARAMETERS,MODIFIERS AND VARIABLES IN SNAKE CASE  | -  |
-| [NC-11]  | Use a more recent version of solidity  | -  |
-| [NC-12]  | NATSPEC COMMENTS SHOULD BE INCREASED IN CONTRACTS  | -  |
-| [NC-13]  | NOT USING THE NAMED RETURN VARIABLES ANYWHERE IN THE FUNCTION IS CONFUSING  | -  |
-| [NC-14]  | Mark visibility of initialize(…) functions as external   | 1  |
-| [NC-15]  |  Contract layout and order of functions |  - |
-| [NC-16]  |  Pragma float | -  |
-| [NC-17]  | Use solidity naming conventions for state variables   |  6 |
-| [NC-18]  | Interchangeable usage of uint and uint256  |  - |
-| [NC-19]  | TYPOS  | 3  |
-| [NC-20]  | public functions not called by the contract should be declared external instead   |  6 |
-| [NC-21]  | Use scientific notations rather than exponential notations  |  5 |
-| [NC-22]  |  Use underscores for number literals  |  7 |
-| [NC-23]  | Unused variables   |  2 |
-| [NC-24]  | Keccak Constant values should used to immutable rather than constant   |  1 |
-| [NC-25]  | Tokens accidentally sent to the contract cannot be recovered  | -  |
-| [NC-26]  | Use SMTChecker  | -  |
-| [NC-27]  | Constants on the left are better  | -  |
-| [NC-28]  | Use constants instead of using numbers directly     |  5 |
-| [NC-29]  |  According to the syntax rules, use => mapping ( instead of => mapping( using spaces as keyword   |   6|
-| [NC-30]  | Assembly Codes Specific – Should Have Comments   | 2  |
-| [NC-31]  | Large multiples of ten should use scientific notation (e.g. 1e5) rather than decimal literals (e.g. 100000), for readability    |  4 |
+| [NC-1]  | Add a timelock to critical functions  |  15 |
+| [NC-2]  | No SAME VALUE INPUT CONTROL  |  15 |
+| [NC-3]  |  Critical changes should use two-step procedure | 15  |
+| [NC-4]  | For functions, follow Solidity standard naming conventions (internal function style rule)  |  4 |
+| [NC-5]  | Use a more recent version of solidity  |  - |
+| [NC-6]  | Contract layout and order of functions  | -  |
+| [NC-7]  | Tokens accidentally sent to the contract cannot be recovered  |  - |
+| [NC-8]  | Use SMTChecker  |  - |
+| [NC-9]  | According to the syntax rules, use => mapping ( instead of => mapping( using spaces as keyword |  - |
+| [NC-10]  | Reduce the inheritance list  | 5  |
+| [NC-11]  | Need Fuzz testing for unchecked  | 2  |
 
 ##
 
@@ -128,7 +104,7 @@ Require(loopLimit > 0, "the loopLimit  can't be zero value ");
 
 ##
 
-## [L-3] Missing Event for initialize
+## [L-3] Missing Events for initialize
 
 Events help non-contract tools to track changes, and events prevent users from being surprised by changes Issuing event-emit during initialization is a detail that many projects skip
 
@@ -166,16 +142,7 @@ Update OpenZeppelin Contracts Usage in package.json and require at least version
 
 ##
 
-## [L-5] Project Upgrade and Stop Scenario should be
-
-At the start of the project, the system may need to be stopped or upgraded, I suggest you have a script beforehand and add it to the documentation. This can also be called an ” EMERGENCY STOP (CIRCUIT BREAKER) PATTERN 
-
-https://github.com/maxwoe/solidity_patterns/blob/master/security/EmergencyStop.sol
-
-
-##
-
-## [L-6] Even with the onlyOwner modifier, it is best practice to use the re-entrancy pattern
+## [L-5] Even with the onlyOwner modifier, it is best practice to use the re-entrancy pattern
 
 It's still good practice to apply the reentry model as a precautionary measure in case the code is changed in the future to remove the onlyOwner modifier or the contract is used as a base contract for other contracts.
 
@@ -252,7 +219,7 @@ https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e625
     }
 ```
 
-## [L-7]  INITIALIZE() FUNCTION CAN BE CALLED BY ANYBODY (Initializer could be front-run)
+## [L-6] INITIALIZE() FUNCTION CAN BE CALLED BY ANYBODY (Initializer could be front-run)
 
 initialize() function can be called anybody when the contract is not initialized.
 
@@ -356,7 +323,7 @@ if (msg.sender != DEPLOYER_ADDRESS) {
 
 ```
 
-## [L-8] Use safeTransferOwnership instead of transferOwnership function
+## [L-7] Use safeTransferOwnership instead of transferOwnership function
 
 Use safeTransferOwnership which is safer. Use it as it is more secure due to 2-stage ownership transfer
 
@@ -378,23 +345,70 @@ https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e625
 
 ##
 
-## [L-] Minting tokens to the zero address should be avoided
+## [L-8] DECIMALS() NOT PART OF ERC20 STANDARD
 
-The core function mint is used by users to mint an option position by providing token1 as collateral and borrowing the max amount of liquidity. Address(0) check is missing in both this function and the internal function _mint, which is triggered to mint the tokens to the to address. Consider applying a check in the function to ensure tokens aren't minted to the zero address
+decimals() is not part of the official ERC20 standard and might fail for tokens that do not implement it. While in practice it is very unlikely, as usually most of the tokens implement it, this should still be considered as a potential issue.
+
+```solidity
+FILE: Breadcrumbs2023-05-venus/contracts/Pool/PoolRegistry.sol
+
+284: uint256 underlyingDecimals = IERC20Metadata(input.asset).decimals();
+
+```
+https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/Pool/PoolRegistry.sol#LL284C7-L284C77
+
+```solidity
+FILE: 2023-05-venus/contracts/Lens/PoolLens.sol
+
+361: underlyingDecimals = IERC20Metadata(vToken.underlying()).decimals();
+
+```
+https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/Lens/PoolLens.sol#LL361C9-L361C77
+
+
+##
+
+## [L-9] Missing ReEntrancy Guard to external functions when transfer tokens using external calls 
+
+If there are external calls, particularly involving token transfers or interactions with other contracts, there may be a potential for reentrancy vulnerabilities. Even with check-effect-interaction pattern the ReEntrancyGuard gives extra layer of security.
+
+https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/RiskFund/RiskFund.sol#L190-L199
+
+claimRewardToken function transfer the tokens using  _grantRewardToken internal functions.
+
+```solidity
+FILE: Breadcrumbs2023-05-venus/contracts/Rewards/RewardsDistributor.sol
+
+277: function claimRewardToken(address holder, VToken[] memory vTokens) public {
+        uint256 vTokensCount = vTokens.length;
+
+        _ensureMaxLoops(vTokensCount);
+
+        for (uint256 i; i < vTokensCount; ++i) {
+            VToken vToken = vTokens[i];
+            require(comptroller.isMarketListed(vToken), "market must be listed");
+            Exp memory borrowIndex = Exp({ mantissa: vToken.borrowIndex() });
+            _updateRewardTokenBorrowIndex(address(vToken), borrowIndex);
+            _distributeBorrowerRewardToken(address(vToken), holder, borrowIndex);
+            _updateRewardTokenSupplyIndex(address(vToken));
+            _distributeSupplierRewardToken(address(vToken), holder);
+        }
+        rewardTokenAccrued[holder] = _grantRewardToken(holder, rewardTokenAccrued[holder]); //@audit Token transfer call 
+    }
+
+```
+https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/Rewards/RewardsDistributor.sol#L277-L292
+
+### Recommended Mitigation Steps
+Use Openzeppelin Re-Entrancy pattern.
 
 
 
+## [L-] Project Upgrade and Stop Scenario should be
 
+At the start of the project, the system may need to be stopped or upgraded, I suggest you have a script beforehand and add it to the documentation. This can also be called an ” EMERGENCY STOP (CIRCUIT BREAKER) PATTERN 
 
-
-
-
-
-
-
-
-
-
+https://github.com/maxwoe/solidity_patterns/blob/master/security/EmergencyStop.sol
 
 
 
@@ -663,6 +677,8 @@ https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e625
 
 https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/Lens/PoolLens.sol#L516-L521
 
+https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/RiskFund/ReserveHelpers.sol#L13-L20
+
 ##
 
 ## [NC-5] Use a more recent version of solidity
@@ -715,10 +731,7 @@ All contracts should follow the solidity style guide
 
 ##
 
-## [Nc-7] Tokens accidentally sent to the contract cannot be recovered
-
-### Context
-contracts/staking/NeoTokyoStaker.sol:
+## [NC-7] Tokens accidentally sent to the contract cannot be recovered
 
 It can’t be recovered if the tokens accidentally arrive at the contract address, which has happened to many popular projects, so I recommend adding a recovery code to your critical contracts.
 
