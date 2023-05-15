@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "carlitox477",
+  "risk": "3",
+  "title": "Incorrect `blocksPerYear` set in `WhitePaperInterestRateModel` leads to miscalculation in critical functions of the protocol.",
+  "issueId": 383,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/383"
+}
