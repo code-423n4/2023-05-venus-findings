@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "0xkazim",
+  "risk": "2",
+  "title": "the price of `underlyingAssets` should be updated before setting the balance Of Underlying Asset",
+  "issueId": 367,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/367"
+}
