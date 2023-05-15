@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "chaieth",
+  "risk": "3",
+  "title": "Read only Re-entrancy attack is possible as the protocol does not have any time locks to increase and reduce pool reserves",
+  "issueId": 398,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/398"
+}
