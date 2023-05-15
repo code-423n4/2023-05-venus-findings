@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "0xbepresent",
+  "risk": "2",
+  "title": "Borrower interests are increased even when the `repay` function is paused",
+  "issueId": 390,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/390"
+}
