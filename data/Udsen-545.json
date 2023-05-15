@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "Udsen",
+  "risk": "2",
+  "title": "MALICIOUS BORROWER CAN DELAY THE `Comptroller.liquidateAccount()` TRANSACTION BY REPAYING ONE OF HIS BORROWED ASSET SO THAT  `repayAmount > borrowBalance` WILL OCCUR FOR THAT BORROWED ASSET, THUS REVERTING THE TRANSACTION",
+  "issueId": 545,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/545"
+}
