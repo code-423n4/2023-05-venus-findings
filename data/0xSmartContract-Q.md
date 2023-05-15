@@ -7,8 +7,9 @@
 |L-03|Avoid _shadowing_ `inherited state variables` | 1 |
 |L-04|Vtoken.sol contract hasn’t `__Ownable2Step_init()`||
 |N-05|Use a single file for all system-wide constants| 22 |
+|N-06|Project Upgrade and Stop Scenario should be|  |
 
-Total 5 issues
+Total 6 issues
 
 ### L-01 JumpRateModelFactory  is suspicious of the reorg attack
 
@@ -132,7 +133,7 @@ The local variable name ` owner ` in the ` VToken.sol ` hase the same name and c
 **Recommendation:**
 Avoid using variables with the same name, including inherited in the same contract, if used, it must be specified in the NatSpec comments.
 
-### L-03 Vtoken.sol contract hasn’t `__Ownable2Step_init()`
+### L-04 Vtoken.sol contract hasn’t `__Ownable2Step_init()`
 
 **Context:**
 ```diff
@@ -177,7 +178,7 @@ contracts/VToken.sol:
 
 `Constructors` or `initializes` are replaced by internal initializer functions following the naming convention __{ContractName}_init. Since these are internal, you must always define your own public initializer function and call the parent initializer of the contract you extend.
 
-### N-01 Use a single file for all system-wide constants
+### N-05 Use a single file for all system-wide constants
 
 There are many addresses and constants used in the system. It is recommended to put the most used ones in one file (for example constants.sol, use inheritance to access these values)
 
@@ -250,4 +251,10 @@ contracts/Shortfall/Shortfall.sol:
 
 ```
 
+### N-06 Project Upgrade and Stop Scenario should be
+
+At the start of the project, the system may need to be stopped or upgraded, I suggest you have a script beforehand and add it to the documentation.
+This can also be called an " EMERGENCY STOP (CIRCUIT BREAKER) PATTERN ".
+
+https://github.com/maxwoe/solidity_patterns/blob/master/security/EmergencyStop.sol
 
