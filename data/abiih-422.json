@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "abiih",
+  "risk": "3",
+  "title": "Borrowers can be liquidated before default by being based on the borrowBalance from other pools",
+  "issueId": 422,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/422"
+}
