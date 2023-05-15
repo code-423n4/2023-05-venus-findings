@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "J4de",
+  "risk": "3",
+  "title": "`totalBorrows` inflates faster than the sum of each position's debt",
+  "issueId": 446,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/446"
+}
