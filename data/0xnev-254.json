@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "0xnev",
+  "risk": "2",
+  "title": " Assumptions of underlying assets of vToken always having decimals of 18 can cause incorrect calculation of exchange rates",
+  "issueId": 254,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/254"
+}
