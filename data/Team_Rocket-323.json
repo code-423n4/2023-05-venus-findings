@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "Team_Rocket",
+  "risk": "2",
+  "title": "Malicious user can cause a DoS to win `Shortfall` auctions using ERC-777 hooks",
+  "issueId": 323,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/323"
+}
