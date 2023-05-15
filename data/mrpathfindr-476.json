@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "mrpathfindr",
+  "risk": "2",
+  "title": "Integer overflow of supplyCap can lead to an unwanted amount of supply tokens being distributed ",
+  "issueId": 476,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/476"
+}
