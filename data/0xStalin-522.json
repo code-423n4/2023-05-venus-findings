@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "0xStalin",
+  "risk": "2",
+  "title": "Missing transaction expiration check result in asset tokens selling at a lower price",
+  "issueId": 522,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/522"
+}
