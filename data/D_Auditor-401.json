@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "D_Auditor",
+  "risk": "2",
+  "title": "ASSET STATE WASNT UPDATED IN RISKFUND::SWAPPOOLASSET BEFORE THE PANCAKESWAP OPERATION IS CARRIED OUT",
+  "issueId": 401,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/401"
+}
