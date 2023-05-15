@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "RaymondFam",
+  "risk": "3",
+  "title": "First asset supply can be exploited to break vToken calculation",
+  "issueId": 241,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/241"
+}
