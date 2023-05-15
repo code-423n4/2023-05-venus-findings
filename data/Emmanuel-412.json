@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "Emmanuel",
+  "risk": "2",
+  "title": "`Shortfall#placeBid` for an auction will be DoSed by malicious user.",
+  "issueId": 412,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/412"
+}
