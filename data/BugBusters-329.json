@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "BugBusters",
+  "risk": "2",
+  "title": "Malicious Bidders can front run each other causing DOS",
+  "issueId": 329,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/329"
+}
