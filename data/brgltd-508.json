@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "brgltd",
+  "risk": "2",
+  "title": "`initialExchangeRateMantissa_` calculation will fail if `input.decimals` is bigger than 18 in `PoolRegistry.addMarket()`",
+  "issueId": 508,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/508"
+}
