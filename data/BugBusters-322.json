@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "BugBusters",
+  "risk": "3",
+  "title": "Protocol could face loss if the highest bidder made a bid which is far less then Risk Fund Amount in case of `LARGE_POOL_DEBT` auction",
+  "issueId": 322,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/322"
+}
