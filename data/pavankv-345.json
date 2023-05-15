@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "pavankv",
+  "risk": "3",
+  "title": "liquidateAccount() and healAccount() functions get revert even if totalcollateral is greater than MinLiquidatableCollateral",
+  "issueId": 345,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/345"
+}
