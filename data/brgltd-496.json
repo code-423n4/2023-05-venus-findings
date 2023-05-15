@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "brgltd",
+  "risk": "2",
+  "title": "It is possible to override pool params in `PoolRegistry.sol` since the `creator` field is never set for a venus pool",
+  "issueId": 496,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/496"
+}
