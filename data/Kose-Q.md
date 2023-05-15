@@ -4,23 +4,17 @@
 |:--:|:-------|:--:|
 |[L-01]|Add Event-Emit for State Changes| 2 |
 |[L-02]|Missing Event for initialize| 6 |
-|[L-03]|Insufficient Coverage | 1 |
-|[L-04]|```safeApprove()``` is deprecated | 1 |
-|[L-05]|There is an inconsistency in ```blocksPerYear``` between contracts that can cause conflict. | 1 |
-|[NC-01]|Public functions not called by the contract should be declared external instead| 1 |
-|[NC-02]|Named return variables are not used inside function| 4 |
-|[NC-03]|Immutables should follow the naming convention ```UPPERCASE_WITH_UNDERSCORES```| 3 |
-|[NC-04]|Use ```import {contract1, contract2} from file.sol``` instead of importing all contracts| 16 |
-|[NC-05]|Function natspec and declaration property does not match| 1 |
-|[NC-06]|Initial value check is missing in Set Functions| 5 |
-|[NC-07]|For functions, follow Solidity standard naming conventions| 15 |
-|[NC-08]|Include return parameters in NatSpec comments| 2 |
-|[NC-09]|Use checks (require) before action, not after| 1 |
-|[NC-10]|Constants should be named with all capital letters with underscores separating words.| 17 |
-|[NC-11]|Upgradeable contract is missing a ```__gap[50]``` storage variable| 6 |
+|[L-03]|There is an inconsistency in ```blocksPerYear``` between contracts that can cause conflict. | 1 |
+|[NC-01]|Named return variables are not used inside function| 4 |
+|[NC-02]|Immutables should follow the naming convention ```UPPERCASE_WITH_UNDERSCORES```| 3 |
+|[NC-03]|Function natspec and declaration property does not match| 1 |
+|[NC-04]|Initial value check is missing in Set Functions| 5 |
+|[NC-05]|For functions, follow Solidity standard naming conventions| 15 |
+|[NC-06]|Use checks (require) before action, not after| 1 |
+|[NC-07]|Constants should be named with all capital letters with underscores separating words.| 17 |
 
 
-Total 82 issues
+Total 10 issues with 55 instances
 
 ## Findings
 
@@ -272,28 +266,7 @@ function initialize(address _protocolIncome, address _riskFund) external initial
 ```
 6 files 6 issues
 
-### [L-03] Insufficient Coverage
-
-Achieving 100% code coverage is a able approach for identifying common errors, as it often catches easy-to-find bugs and reduces the likelihood of regressions when the code needs to be modified.This approach facilitates better understanding and auditing of the code, making future modifications smoother and less prone to unexpected issues.
-```
-Readme.md
-
-- What is the overall line coverage percentage provided by your tests?: 94.21
-```
-1 issue
-
-### [L-04] ```safeApprove()``` is deprecated
-
-Deprecated in favor of safeIncreaseAllowance() and safeDecreaseAllowance(). If only setting the initial allowance to the value that means infinite, safeIncreaseAllowance() can be used instead. The function may currently work, but if a bug is found in this version of OpenZeppelin, and the version that you're forced to upgrade to no longer has this function, you'll encounter unnecessary delays in porting and testing replacement contracts.
-```solidity
-venus/contracts/Pool/PoolRegistry.sol
-
-token.safeApprove(address(vToken), 0);
-        token.safeApprove(address(vToken), amountToSupply);
-```
-1 file 1 issue
-
-### [L-05] There is an inconsistency in ```blocksPerYear``` between contracts that can cause conflict.
+### [L-03] There is an inconsistency in ```blocksPerYear``` between contracts that can cause conflict.
 
 In the "WhitePaperInterestRateModel" contract there is a constant "blocksPerYear" defined as "2102400" while the same constant in
 "BaseJumpRateModelV2" contract is defined as "10512000". According to "BaseJumpRateModelV2" contracts NatSpec comments it states that
@@ -317,19 +290,8 @@ venus/contracts/WhitePaperInterestRateModel.sol
 ```
 2 files 1 issue
 
-### [NC-01] Public functions not called by the contract should be declared external instead
 
-
-```solidity
-venus/contracts/Comptroller.sol
-
-function getRewardDistributors() public view returns (RewardsDistributor[] memory) {
-        return rewardsDistributors;
-    }
-```
-1 file 1 issue
-
-### [NC-02] Named return variables are not used inside function
+### [NC-01] Named return variables are not used inside function
 To enhance the readability and clarity of code and to minimize the likelihood of regressions during future code refactoring, it may be advantageous to establish a standardized approach to return values throughout the codebase. This can be accomplished by eliminating named return variables, explicitly defining them as local variables, and adding appropriate return statements
 Therefore, it is recommended to consider adopting a consistent approach to handling return values in Solidity code.
 
@@ -451,7 +413,7 @@ venus/contracts/Pool/PoolRegistry.sol
 ```
 2 files 4 issues
 
-### [NC-03] Immutables should follow the naming convention ```UPPERCASE_WITH_UNDERSCORES```
+### [NC-02] Immutables should follow the naming convention ```UPPERCASE_WITH_UNDERSCORES```
 
 ```solidity
 venus/contracts/Comptroller.sol
@@ -473,165 +435,8 @@ venus/contracts/WhitePaperInterestRateModel.sol
 ```
 2 files 3 issues
 
-### [NC-04] Use ```import {contract1, contract2} from file.sol``` instead of importing all contracts
 
-Using import declarations of the form import {<identifier_name>} from "some/file.sol" avoids polluting the symbol namespace making flattened files smaller, and speeds up compilation.
-
-```solidity
-venus/contracts/Comptroller.sol
-
-import "@openzeppelin/contracts-upgradeable/access/Ownable2StepUpgradeable.sol";
-
-import "./VToken.sol";
-import "@venusprotocol/oracle/contracts/PriceOracle.sol";
-import "./ComptrollerInterface.sol";
-import "./ComptrollerStorage.sol";
-import "./Rewards/RewardsDistributor.sol";
-import "@venusprotocol/governance-contracts/contracts/Governance/AccessControlManager.sol";
-import "./MaxLoopsLimitHelper.sol";
-```
-```solidity
-venus/contracts/VToken.sol
-
-
-import "@openzeppelin/contracts-upgradeable/access/Ownable2StepUpgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/token/ERC20/utils/SafeERC20Upgradeable.sol";
-
-import "./ComptrollerInterface.sol";
-import "./VTokenInterfaces.sol";
-import "./ErrorReporter.sol";
-import "./InterestRateModel.sol";
-import "./ExponentialNoError.sol";
-import "@venusprotocol/governance-contracts/contracts/Governance/AccessControlledV8.sol";
-import "./RiskFund/IProtocolShareReserve.sol";
-```
-```solidity
-venus/contracts/Shortfall/Shortfall.sol
-
-import "@openzeppelin/contracts-upgradeable/access/Ownable2StepUpgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/token/ERC20/utils/SafeERC20Upgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/security/ReentrancyGuardUpgradeable.sol";
-import "@venusprotocol/oracle/contracts/PriceOracle.sol";
-
-import "../VToken.sol";
-import "../ComptrollerInterface.sol";
-import "../RiskFund/IRiskFund.sol";
-import "./IShortfall.sol";
-import "../Pool/PoolRegistry.sol";
-import "../Pool/PoolRegistryInterface.sol";
-import "@venusprotocol/governance-contracts/contracts/Governance/AccessControlledV8.sol";
-
-
-```
-```solidity
-venus/contracts/Rewards/RewardsDİstributor.sol
-
-import "@openzeppelin/contracts-upgradeable/access/Ownable2StepUpgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/token/ERC20/utils/SafeERC20Upgradeable.sol";
-import "../ExponentialNoError.sol";
-import "../VToken.sol";
-import "../Comptroller.sol";
-import "../MaxLoopsLimitHelper.sol";
-import "@venusprotocol/governance-contracts/contracts/Governance/AccessControlledV8.sol";
-
-```
-
-```solidity
-venus/contracts/Pool/PoolRegistry.sol
-
-import "@openzeppelin/contracts-upgradeable/access/Ownable2StepUpgradeable.sol";
-import "@venusprotocol/oracle/contracts/PriceOracle.sol";
-import "@openzeppelin/contracts/proxy/beacon/BeaconProxy.sol";
-import "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
-
-import "../Comptroller.sol";
-import "../Factories/VTokenProxyFactory.sol";
-import "../Factories/JumpRateModelFactory.sol";
-import "../Factories/WhitePaperInterestRateModelFactory.sol";
-import "../WhitePaperInterestRateModel.sol";
-import "../VToken.sol";
-import "../InterestRateModel.sol";
-import "@venusprotocol/governance-contracts/contracts/Governance/AccessControlManager.sol";
-import "../Shortfall/Shortfall.sol";
-import "../VTokenInterfaces.sol";
-import "./PoolRegistryInterface.sol";
-```
-```solidity
-venus/contracts/VTokenInterfaces.sol
-import "@openzeppelin/contracts-upgradeable/token/ERC20/IERC20Upgradeable.sol";
-import "@venusprotocol/oracle/contracts/PriceOracle.sol";
-import "./ComptrollerInterface.sol";
-import "./InterestRateModel.sol";
-import "./ErrorReporter.sol";
-```
-```solidity
-venus/contracts/BaseJumpRateModelV2.sol
-
-import "@venusprotocol/governance-contracts/contracts/Governance/IAccessControlManagerV8.sol";
-import "./InterestRateModel.sol";
-```
-```solidity
-venus/contracts/ComptrollerStorage.sol
-
-import "@venusprotocol/oracle/contracts/PriceOracle.sol";
-import "./VToken.sol";
-```
-```solidity
-venus/contracts/RiskFund/ProtocolShareReserve.sol
-
-import "@openzeppelin/contracts-upgradeable/access/Ownable2StepUpgradeable.sol";
-import "@openzeppelin/contracts-upgradeable/token/ERC20/utils/SafeERC20Upgradeable.sol";
-
-import "../ExponentialNoError.sol";
-import "./IRiskFund.sol";
-import "./ReserveHelpers.sol";
-import "./IProtocolShareReserve.sol";
-```
-```solidity
-venus/contracts/Factories/VTokenProxyFactory.sol
-
-import "@openzeppelin/contracts/proxy/beacon/BeaconProxy.sol";
-
-import "../VToken.sol";
-import "@venusprotocol/governance-contracts/contracts/Governance/AccessControlManager.sol";
-import "../VTokenInterfaces.sol";
-```
-```solidity
-venus/contracts/WhitePaperInterestRateModel.sol
-
-import "./InterestRateModel.sol";
-```
-```solidity
-venus/contracts/ReserveHelpers.sol
-
-import "@openzeppelin/contracts-upgradeable/token/ERC20/utils/SafeERC20Upgradeable.sol";
-
-import "../ComptrollerInterface.sol";
-import "../Pool/PoolRegistryInterface.sol";
-```
-```solidity
-venus/contracts/JumpRateModelV2.sol
-
-import "./BaseJumpRateModelV2.sol";
-```
-```solidity
-venus/contracts/Factories/JumpRateModelFactory.sol
-
-import "../JumpRateModelV2.sol";
-```
-```solidity
-venus/contracts/Proxy/UpgradeableBeacon.sol
-
-import "@openzeppelin/contracts/proxy/beacon/UpgradeableBeacon.sol";
-```
-```solidity
-venus/contracts/Factories/WhitePaperInterestRateModelFactory.sol
-
-import "../WhitePaperInterestRateModel.sol";
-```
-16 files 16 issues
-
-### [NC-05] Function natspec and declaration property does not match
+### [NC-03] Function natspec and declaration property does not match
 
 Function declared as external while natspec @notice explain the function as it is public function.
 
@@ -654,7 +459,7 @@ venus/contracts/VToken.sol
 ```
 1 file 1 issue
 
-### [NC-06] Initial value check is missing in Set Functions
+### [NC-04] Initial value check is missing in Set Functions
 
 It is optimal to check whether the current value and new value are the same or not. 
 
@@ -705,7 +510,7 @@ function setProtocolSeizeShare(uint256 newProtocolSeizeShareMantissa_) external 
 ```
 1 file 5 issues
 
- ### [NC-07] For functions, follow Solidity standard naming conventions
+ ### [NC-05] For functions, follow Solidity standard naming conventions
  
  It is recommended to use ```_mixedCase``` naming convention for internal and private functions.
  
@@ -808,34 +613,7 @@ function mul_ScalarTruncateAddUInt(
 2 files 15 issues
 
 
-### [NC-08] Include return parameters in NatSpec comments
-
-There are functions that return something which does not specified in NatSpec comments.
-
-```solidity
-venus/contracts/Shortfall/Shortfall.sol
-
-/**
-     * @dev Checks if the auction has started
-     * @param auction The auction to query the status for
-     */
-    function _isStarted(Auction storage auction) internal view returns (bool) {
-        return auction.startBlock != 0 && auction.status == AuctionStatus.STARTED;
-    }
-
-    /**
-     * @dev Checks if the auction is stale, i.e. there's no bidder and the auction
-     *   was started more than waitForFirstBidder blocks ago.
-     * @param auction The auction to query the status for
-     */
-    function _isStale(Auction storage auction) internal view returns (bool) {
-        bool noBidder = auction.highestBidder == address(0);
-        return noBidder && (block.number > auction.startBlock + waitForFirstBidder);
-    }
-```
-1 file 2 issues
-
-### [NC-09] Use checks (require) before action, not after
+### [NC-06] Use checks (require) before action, not after
 
 In the following code require statement used after calling internal function and performing operation. Although the actions will revert 
 if code can not pass require statement, it is best practice to check before action, not after.
@@ -851,7 +629,7 @@ venus/contracts/Rewards/RewardsDistributor.sol
 ```
 1 file 1 issue
 
-### [NC-10] Constants should be named with all capital letters with underscores separating words.
+### [NC-07] Constants should be named with all capital letters with underscores separating words.
 
 It is recommended in solidity style guide to name constants with all capital letters with underscores separating words.
 Examples:
@@ -921,56 +699,3 @@ venus/contracts/InterestRateModel.sol
 bool public constant isInterestRateModel = true;
 ```
 8 files 17 issues
-
-### [NC-11] Upgradeable contract is missing a ```__gap[50]``` storage variable
-
-In upgradeable Solidity contracts, there is a peculiar state variable named ```__gap```. This variable acts as empty storage space reserved in Upgradeable contracts, allowing the addition of new state variables without causing storage compatibility issues with existing deployments. Essentially, the ```__gap``` variable pre-allocates unused storage space in advance, providing more flexibility in future modifications to the codebase. By taking this approach, the contract can better handle future changes, which can help to reduce compatibility issues and improve the overall efficiency of the codebase.
-
-```solidity
-venus/contracts/Rewards/RewardsDistributor.sol
-
-contract RewardsDistributor is ExponentialNoError, Ownable2StepUpgradeable, AccessControlledV8, MaxLoopsLimitHelper
-```
-```solidity
-venus/contracts/Pool/PoolRegistry.sol
-
-contract PoolRegistry is Ownable2StepUpgradeable, AccessControlledV8, PoolRegistryInterface 
-```
-```solidity
-venus/contracts/RiskFund/RiskFund.sol
-
-contract RiskFund is
-    Ownable2StepUpgradeable,
-    AccessControlledV8,
-    ExponentialNoError,
-    ReserveHelpers,
-    MaxLoopsLimitHelper,
-    IRiskFund
-```
-```solidity
-venus/contracts/VToken.sol
-
-contract VToken is
-    Ownable2StepUpgradeable,
-    AccessControlledV8,
-    VTokenInterface,
-    ExponentialNoError,
-    TokenErrorReporter
-```
-```solidity
-venus/contracts/Shorfall/Shortfall.sol
-
-contract Shortfall is Ownable2StepUpgradeable, AccessControlledV8, ReentrancyGuardUpgradeable, IShortfall 
-```
-```solidity
-venus/contracts/Comptroller.sol
-
-contract Comptroller is
-    Ownable2StepUpgradeable,
-    AccessControlledV8,
-    ComptrollerStorage,
-    ComptrollerInterface,
-    ExponentialNoError,
-    MaxLoopsLimitHelper
-```
-6 file 6 issues
