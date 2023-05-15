@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "0xAce",
+  "risk": "2",
+  "title": "`amount` not updated in `_grantRewardToken` function ",
+  "issueId": 469,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/469"
+}
