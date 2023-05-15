@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "peanuts",
+  "risk": "2",
+  "title": "Bad Debt in PoolLens.sol#getPoolBadDebt() is not calculated correctly in USD",
+  "issueId": 316,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/316"
+}
