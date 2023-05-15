@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "peanuts",
+  "risk": "2",
+  "title": "An attacker can blacklist himself right after placing a bid in auction to guarantee the highest payout in AuctionType.LARGE_RISK_FUND",
+  "issueId": 374,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/374"
+}
