@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "0xkazim",
+  "risk": "3",
+  "title": "attacker can call `reduceReserves` function multiple time and drain the protocol",
+  "issueId": 403,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/403"
+}
