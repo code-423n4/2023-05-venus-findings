@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "0x73696d616f",
+  "risk": "3",
+  "title": "It's possible to borrow, redeem, transfer tokens and exit markets with outdated collateral prices and borrow interest",
+  "issueId": 486,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/486"
+}
