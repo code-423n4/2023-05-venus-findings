@@ -1,4 +1,8 @@
-1) _getBlockNumber() is called 3 times via addReserves(). Can be optimized to call only once.
+1) Repeated Calls to _getBlockNumber(): You can store the result of _getBlockNumber() in a local variable if it's going to be used multiple times in the same transaction.
+
+One case, of many:
+
+_getBlockNumber() is called 3 times via addReserves(). Can be optimized to call only once.
 
 https://github.com/code-423n4/2023-05-venus/blob/723001cf7bc0f37aba26fb385ec1a60135f24fe3/contracts/VToken.sol#L350-L359
 https://github.com/code-423n4/2023-05-venus/blob/723001cf7bc0f37aba26fb385ec1a60135f24fe3/contracts/VToken.sol#L678
