@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "0xWaitress",
+  "risk": "2",
+  "title": "VToken accureInterest() does not check call status internally versus check externally",
+  "issueId": 271,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/271"
+}
