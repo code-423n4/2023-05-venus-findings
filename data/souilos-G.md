@@ -1266,6 +1266,107 @@ Instead of using address(this), it is more gas-efficient to pre-calculate and us
 
 # VULN 12 
 
+## [GAS] Functions guaranteed to revert when called by normal users can be marked payable
+------------------------------------------------------------------------ 
+
+### Proof of concept 
+
+Found in line 927 at contests/venusContest/contracts/Comptroller.sol:
+
+    function addRewardsDistributor(RewardsDistributor _rewardsDistributor) external onlyOwner {
+
+
+Found in line 961 at contests/venusContest/contracts/Comptroller.sol:
+
+    function setPriceOracle(PriceOracle newOracle) external onlyOwner {
+
+
+Found in line 973 at contests/venusContest/contracts/Comptroller.sol:
+
+    function setMaxLoopsLimit(uint256 limit) external onlyOwner {
+
+
+Found in line 505 at contests/venusContest/contracts/VToken.sol:
+
+    function setProtocolShareReserve(address payable protocolShareReserve_) external onlyOwner {
+
+
+Found in line 515 at contests/venusContest/contracts/VToken.sol:
+
+    function setShortfallContract(address shortfall_) external onlyOwner {
+
+
+Found in line 348 at contests/venusContest/contracts/Shortfall/Shortfall.sol:
+
+    function updatePoolRegistry(address _poolRegistry) external onlyOwner {
+
+
+Found in line 99 at contests/venusContest/contracts/RiskFund/RiskFund.sol:
+
+    function setPoolRegistry(address _poolRegistry) external onlyOwner {
+
+
+Found in line 110 at contests/venusContest/contracts/RiskFund/RiskFund.sol:
+
+    function setShortfallContractAddress(address shortfallContractAddress_) external onlyOwner {
+
+
+Found in line 126 at contests/venusContest/contracts/RiskFund/RiskFund.sol:
+
+    function setPancakeSwapRouter(address pancakeSwapRouter_) external onlyOwner {
+
+
+Found in line 205 at contests/venusContest/contracts/RiskFund/RiskFund.sol:
+
+    function setMaxLoopsLimit(uint256 limit) external onlyOwner {
+
+
+Found in line 53 at contests/venusContest/contracts/RiskFund/ProtocolShareReserve.sol:
+
+    function setPoolRegistry(address _poolRegistry) external onlyOwner {
+
+
+Found in line 181 at contests/venusContest/contracts/Rewards/RewardsDistributor.sol:
+
+    function grantRewardToken(address recipient, uint256 amount) external onlyOwner {
+
+
+Found in line 219 at contests/venusContest/contracts/Rewards/RewardsDistributor.sol:
+
+    function setContributorRewardTokenSpeed(address contributor, uint256 rewardTokenSpeed) external onlyOwner {
+
+
+Found in line 249 at contests/venusContest/contracts/Rewards/RewardsDistributor.sol:
+
+    function setMaxLoopsLimit(uint256 limit) external onlyOwner {
+
+
+Found in line 188 at contests/venusContest/contracts/Pool/PoolRegistry.sol:
+
+    function setProtocolShareReserve(address payable protocolShareReserve_) external onlyOwner {
+
+
+Found in line 198 at contests/venusContest/contracts/Pool/PoolRegistry.sol:
+
+    function setShortfallContract(Shortfall shortfall_) external onlyOwner {
+
+------------------------------------------------------------------------ 
+
+### Mitigation 
+
+If a function modifier or require such as onlyOwner/onlyX is used, the function will revert if a normal user tries to pay the function. Marking the function as payable will lower the gas cost for legitimate callers because the compiler will not include checks for whether a payment was provided. The extra opcodes avoided are CALLVALUE(2), DUP1(3), ISZERO(3), PUSH2(3), JUMPI(10), PUSH1(3), DUP1(3), REVERT(0), JUMPDEST(1), POP(2) which costs an average of about 21 gas per call to the function, in addition to the extra deployment cost.
+
+
+
+
+
+
+
+
+
+
+# VULN 13 
+
 ## [GAS] Do not calculate constants
 ------------------------------------------------------------------------ 
 
@@ -1305,7 +1406,7 @@ Due to how constant variables are implemented (replacements at compile-time), an
 
 
 
-# VULN 13 
+# VULN 14 
 
 ## [GAS] Using private rather than public for constants, saves gas
 ------------------------------------------------------------------------ 
@@ -1336,7 +1437,7 @@ If needed, the values can be read from the verified contract source code, or if 
 
 
 
-# VULN 14 
+# VULN 15 
 
 ## [GAS] >= costs less gas than >
 ------------------------------------------------------------------------ 
@@ -1367,7 +1468,7 @@ The compiler uses opcodes GT and ISZERO for solidity code that uses >, but only 
 
 
 
-# VULN 15 
+# VULN 16 
 
 ## [GAS] Use double require instead of using &&
 ------------------------------------------------------------------------ 
@@ -1390,3 +1491,34 @@ Found in line 1365 at contests/venusContest/contracts/VToken.sol:
 ### Mitigation 
 
 Using double require instead of operator && can save more gas. When having a require statement with 2 or more expressions needed, place the expression that cost less gas first.
+
+
+
+
+
+
+
+
+
+
+# VULN 17 
+
+## [GAS] bytes constants are more eficient than string constans
+------------------------------------------------------------------------ 
+
+### Proof of concept 
+
+Found in line 35 at contests/venusContest/contracts/VTokenInterfaces.sol:
+
+    string public name;
+
+
+Found in line 40 at contests/venusContest/contracts/VTokenInterfaces.sol:
+
+    string public symbol;
+
+------------------------------------------------------------------------ 
+
+### Mitigation 
+
+If the data can fit in 32 bytes, the bytes32 data type can be used instead of bytes or strings, as it is less robust in terms of robustness.
