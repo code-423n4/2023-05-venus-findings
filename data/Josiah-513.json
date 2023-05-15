@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "Josiah",
+  "risk": "2",
+  "title": "PLACEBID() IN SHORTFALL.SOL MAY LEAD TO DENIAL OF SERVICE AND FRONT RUNNING ATTACKS",
+  "issueId": 513,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/513"
+}
