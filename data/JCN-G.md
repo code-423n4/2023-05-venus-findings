@@ -2760,8 +2760,6 @@ index 8d9a2dc..76771a4 100644
 ## Use do while loops instead of for loops
 A `do while` loop will cost less gas since the condition is not being checked for the first iteration.
 
-Total Instances: `x`
-
 https://github.com/code-423n4/2023-05-venus/blob/main/contracts/RiskFund/RiskFund.sol#L166
 
 *Gas Savings for `RiskFund.swapPoolsAssets`, obtained via protocol's tests: Avg 73 gas*
