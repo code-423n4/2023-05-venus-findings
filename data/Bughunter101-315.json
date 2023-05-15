@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "Bughunter101",
+  "risk": "3",
+  "title": "Liquidity cannot be cleared due to removal list of vtoken, this can result in a critical loss of funds vulnerability for the Lender and/or the protocol.",
+  "issueId": 315,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/315"
+}
