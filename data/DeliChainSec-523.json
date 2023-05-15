@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "DeliChainSec",
+  "risk": "2",
+  "title": "Stale risk fund assets may make protocol loose funds",
+  "issueId": 523,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/523"
+}
