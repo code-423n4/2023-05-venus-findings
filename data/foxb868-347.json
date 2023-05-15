@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "foxb868",
+  "risk": "2",
+  "title": "Reverting Contract When Comptroller's Oracle Method Returns a Zero Address.",
+  "issueId": 347,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/347"
+}
