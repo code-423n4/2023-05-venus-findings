@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "emerald7017",
+  "risk": "2",
+  "title": "Decimal Method Call Failure Due to Wrong ERC20 Contract Address.",
+  "issueId": 346,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/346"
+}
