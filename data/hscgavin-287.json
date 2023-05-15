@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "hscgavin",
+  "risk": "2",
+  "title": "\"enterMarkets\" is vulnerable to reentrancy attacks.",
+  "issueId": 287,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/287"
+}
