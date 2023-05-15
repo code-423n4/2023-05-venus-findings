@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "ast3ros",
+  "risk": "2",
+  "title": "[M-2] Interest rate is incorrectly calculated in WhitePaperInterestRateModel",
+  "issueId": 394,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/394"
+}
