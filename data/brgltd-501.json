@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "brgltd",
+  "risk": "2",
+  "title": "Lack of method to delete a rewardsDistributor in `Comptroller.sol` can break rewards distribution permanently",
+  "issueId": 501,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/501"
+}
