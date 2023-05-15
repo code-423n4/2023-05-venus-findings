@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "SAAJ",
+  "risk": "2",
+  "title": "Malicious/wrong data can be passed through abi.encodeWithSelector",
+  "issueId": 534,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/534"
+}
