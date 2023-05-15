@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "RaymondFam",
+  "risk": "2",
+  "title": "A malicious actor could easily make Shortfall.placeBid() run into DoS",
+  "issueId": 248,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/248"
+}
