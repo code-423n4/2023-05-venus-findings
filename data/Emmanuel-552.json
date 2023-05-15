@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "Emmanuel",
+  "risk": "3",
+  "title": "Inadequate checks for comptroller in `PoolRegistry#addMarket` allows malicious comptrollers to be added",
+  "issueId": 552,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/552"
+}
