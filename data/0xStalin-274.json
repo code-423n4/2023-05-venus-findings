@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "0xStalin",
+  "risk": "3",
+  "title": "Incorrectly calculation of the totalBadDebtUsd for an entire pool",
+  "issueId": 274,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/274"
+}
