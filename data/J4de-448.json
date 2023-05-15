@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "J4de",
+  "risk": "3",
+  "title": "`Comptroller.sol#_getHypotheticalLiquiditySnapshot` assumes that all UnderlyingTokens have the same precision",
+  "issueId": 448,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/448"
+}
