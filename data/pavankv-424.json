@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "pavankv",
+  "risk": "2",
+  "title": "preLiquidateHook() will revert  even  totalCollateral is equal to minLiquidatableCollateral",
+  "issueId": 424,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/424"
+}
