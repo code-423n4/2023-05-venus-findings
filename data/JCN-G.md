@@ -2294,6 +2294,7 @@ index 41dc518..194fe6d 100644
 ```
 
 ## Move storage pointer to top of function to avoid offset calculation
+We can avoid unnecessary offset calculations by moving the storage pointer to the top of the function.
 
 https://github.com/code-423n4/2023-05-venus/blob/main/contracts/Comptroller.sol#L804-L810
 
@@ -2337,6 +2338,7 @@ index 41dc518..ad41791 100644
 ```
 
 ## Move calldata pointer to top of for loop to avoid offset calculations
+We can avoid unnecessary offset calculations by moving the calldata pointer to the top of the for loop.
 
 https://github.com/code-423n4/2023-05-venus/blob/main/contracts/Comptroller.sol#L669-L677
 
