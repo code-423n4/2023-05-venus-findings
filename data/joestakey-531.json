@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "joestakey",
+  "risk": "2",
+  "title": "Users can lose their `vToken` in `redeem`",
+  "issueId": 531,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/531"
+}
