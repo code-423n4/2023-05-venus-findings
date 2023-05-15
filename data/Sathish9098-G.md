@@ -16,7 +16,7 @@
 | [G-12] | Amounts should be checked for 0 before calling a transfer  |  7 |  - |
 | [G-13] | Use a more recent version of solidity  |  - |  - |
 | [G-14] | Non-usage of specific imports  |  - |  - |
-
+| [G-15] | Shorten the array rather than copying to a new one |  13 |  - |
 
 ##
 
@@ -599,6 +599,47 @@ ALL SCOPE CONTRACTS
 
 The current form of relative path import is not recommended for use because it can unpredictably pollute the namespace. Instead, the Solidity docs recommend specifying imported symbols explicitly. https://docs.soliditylang.org/en/v0.8.15/layout-of-source-files.html#importing-other-source-files
 
+##
+
+## [G-15] Shorten the array rather than copying to a new one
+
+- Instances (13)
+
+Inline-assembly can be used to shorten the array by changing the length slot, so that the entries don’t have to be copied to a new, shorter array
+
+```solidity
+FILE: Breadcrumbs2023-05-venus/contracts/Lens/PoolLens.sol
+
+126: VTokenBalances[] memory res = new VTokenBalances[](vTokenCount);
+143: PoolData[] memory poolDataItems = new PoolData[](poolLength);
+207: VTokenUnderlyingPrice[] memory res = new VTokenUnderlyingPrice[](vTokenCount);
+228: RewardSummary[] memory rewardSummary = new RewardSummary[](rewardsDistributors.length);
+256: BadDebt[] memory badDebts = new BadDebt[](markets.length);
+390: VTokenMetadata[] memory res = new VTokenMetadata[](vTokenCount);
+417: PendingReward[] memory pendingRewards = new PendingReward[](markets.length);
+
+```
+https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/Lens/PoolLens.sol#LL126C9-L126C73
+
+```solidity
+FILE: Breadcrumbs2023-05-venus/contracts/Shortfall/Shortfall.sol
+
+219: uint256[] memory marketsDebt = new uint256[](marketsCount);
+386: uint256[] memory marketsDebt = new uint256[](marketsCount);
+
+```
+https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/Shortfall/Shortfall.sol#LL219C6-L219C68
+
+```solidity
+FILE: Breadcrumbs2023-05-venus/contracts/Pool/PoolRegistry.sol
+
+306: uint256[] memory newSupplyCaps = new uint256[](1);
+307: uint256[] memory newBorrowCaps = new uint256[](1);
+308: VToken[] memory vTokens = new VToken[](1);
+355: VenusPool[] memory _pools = new VenusPool[](_numberOfPools);
+
+```
+https://github.com/code-423n4/2023-05-venus/blob/8be784ed9752b80e6f1b8b781e2e6251748d0d7e/contracts/Pool/PoolRegistry.sol#LL306C9-L308C51
 
 
 
