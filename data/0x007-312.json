@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "0x007",
+  "risk": "3",
+  "title": "Shortfall is vulnerable to cross-function reentrancy",
+  "issueId": 312,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/312"
+}
