@@ -1,0 +1,8 @@
+{
+  "contest": 236,
+  "handle": "xuwinnie",
+  "risk": "3",
+  "title": "liquidateAccount will fail if transaction is not included in current block",
+  "issueId": 365,
+  "issueUrl": "https://github.com/code-423n4/2023-05-venus-findings/issues/365"
+}
