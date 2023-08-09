@@ -1883,6 +1883,7 @@ For this audit, 27 reports were submitted by wardens detailing gas optimizations
 A majority of the optimizations were benchmarked via the protocol's tests, i.e. using the following config: `solc version 0.8.13`, `optimizer on`, and `200 runs`. Optimizations that were not benchmarked are explained via EVM gas costs and opcodes.
 
 Below are the overall average gas savings for the following tested functions, with all the optimizations applied:
+<br>
 | Function |    Before   |    After   | Avg Gas Savings |
 | ------ | -------- | -------- | ------- |
 | ERC20.decreaseAllowance |  36685  |  36615  | 70 | 
