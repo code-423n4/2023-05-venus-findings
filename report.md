@@ -1882,46 +1882,7 @@ For this audit, 27 reports were submitted by wardens detailing gas optimizations
 ## Summary
 A majority of the optimizations were benchmarked via the protocol's tests, i.e. using the following config: `solc version 0.8.13`, `optimizer on`, and `200 runs`. Optimizations that were not benchmarked are explained via EVM gas costs and opcodes.
 
-Below are the overall average gas savings for the following tested functions, with all the optimizations applied:
-<br>
-| Function |    Before   |    After   | Avg Gas Savings |
-| ------ | -------- | -------- | ------- |
-| ERC20.decreaseAllowance |  36685  |  36615  | 70 | 
-| ERC20.increaseAllowance |  36636  |  36560  | 76 | 
-| ERC20.transfer |  146501  |  145334  | 1167 | 
-| ERC20.transferFrom |  92902  |  92435  | 467 | 
-| Comptroller.addRewardsDistributor |  175094  |  174683  | 411 | 
-| Comptroller.enterMarkets |  132444  |  132238  | 206 | 
-| Comptroller.exitMarket |  69698  |  67959  | 1739 | 
-| Comptroller.healAccount |  223131  |  218001  | 5130 | 
-| Comptroller.liquidateAccount |  233098  |  223536  | 9562 | 
-| Comptroller.preBorrowHook |  102587  |  100579  | 2008 | 
-| Comptroller.supportMarket |  103153  |  98338  | 4815 | 
-| PoolRegistry.addMarket |  1378668  |  1334768  | 43900 | 
-| PoolRegistry.createRegistryPool |  664419  |  618956  | 45463 | 
-| PoolRegistry.updatePoolMetadata |  115095  |  114348  | 747 | 
-| ProtocolShareReserve.releaseFunds |  172312  |  171992  | 320 | 
-| ProtocolShareReserve.updateAssetsState |  89962  |  89816  | 146 | 
-| RewardsDistributor.claimRewardToken |  276621  |  276519  | 102 | 
-| RewardsDistributor.setRewardTokenSpeeds |  208377  |  207399  | 978 | 
-| RiskFund.swapPoolsAssets |  366040  |  357571  | 8469 | 
-| Shortfall.closeAuction |  191937  |  188607  | 3330 | 
-| Shortfall.placeBid |  185429  |  183262  | 2167 | 
-| Shortfall.restartAuction |  114761  |  114056  | 705 | 
-| Shortfall.startAuction |  285153  |  284579  | 574 | 
-| VToken.borrow |  323336  |  319410  | 3926 | 
-| VToken.liquidateBorrow |  293130  |  285753  | 7377 | 
-| VToken.mint |  155902  |  153899  | 2003 | 
-| VToken.redeem |  184107  |  182396  | 1711 | 
-| VToken.reduceReserves |  184956  |  184375  | 581 | 
-| VToken.repayBorrow |  137882  |  136740  | 1142 | 
-
-**Total gas saved across all listed functions: 149292**
-
-*Notes*: 
-
-- The [Gas report](#gasreport-output-with-all-optimizations-applied) output, after all optimizations have been applied, can be found at the end of the report.
-- The final diffs for each contract, with all the optimizations applied, can be found [here](https://gist.github.com/0xJCN/403d8b821361aac8d809c263b0784657).
+For full details regarding the overall average gas savings for the tested functions, with all the optimizations applied, please see the warden's [original submission](https://github.com/code-423n4/2023-05-venus-findings/issues/538).
 
 ## Gas Optimizations
 | Number |Issue|Instances|
@@ -2315,7 +2276,7 @@ index 5cf376f..b2d696a 100644
 ```
 
 ## GasReport output with all optimizations applied
-*Note: see [GasReport](https://github.com/code-423n4/2023-05-venus-findings/blob/main/data/JCN-G.md#gasreport-output-with-all-optimizations-applied) for more details.*
+*Note: please see warden's [original submission](https://github.com/code-423n4/2023-05-venus-findings/issues/538) for full details.*
 
 **[chechu (Venus) confirmed and commented](https://github.com/code-423n4/2023-05-venus-findings/issues/538#issuecomment-1560162579):**
  > G-01	Confirm<br>
